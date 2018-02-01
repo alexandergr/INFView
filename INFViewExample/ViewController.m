@@ -11,7 +11,7 @@
 
 @interface ViewController () <INFViewDataSource>
 
-@property (weak, nonatomic) IBOutlet INFView *infView;
+@property (weak, nonatomic) IBOutlet INFScrollView *infView;
 
 @property (strong, nonatomic) NSArray<UIView*>* arrangedViews;
 
@@ -41,11 +41,11 @@
 
 #pragma mark - INFViewDataSource
 
-- (NSInteger)numberOfSubViewsInINFView:(INFView *)infView {
+- (NSInteger)numberOfSubViewsInINFView:(INFScrollView *)infView {
     return self.arrangedViews.count;
 }
 
-- (UIView*)infView:(INFView *)infView subViewAtIndex:(NSInteger)index {
+- (UIView*)infView:(INFScrollView *)infView subViewAtIndex:(NSInteger)index {
     return self.arrangedViews[index];
 }
 

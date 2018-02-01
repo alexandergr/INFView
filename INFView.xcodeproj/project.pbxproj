@@ -7,14 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11B23B0E2022EF3B002CFE6E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B0D2022EF3B002CFE6E /* AppDelegate.m */; };
+		11B23B112022EF3B002CFE6E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B102022EF3B002CFE6E /* ViewController.m */; };
+		11B23B142022EF3B002CFE6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B23B122022EF3B002CFE6E /* Main.storyboard */; };
+		11B23B162022EF3B002CFE6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11B23B152022EF3B002CFE6E /* Assets.xcassets */; };
+		11B23B192022EF3B002CFE6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B23B172022EF3B002CFE6E /* LaunchScreen.storyboard */; };
+		11B23B1C2022EF3B002CFE6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B1B2022EF3B002CFE6E /* main.m */; };
+		11B23B262022EF3B002CFE6E /* INFViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B252022EF3B002CFE6E /* INFViewExampleTests.m */; };
+		11B23B312022EF3B002CFE6E /* INFViewExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B302022EF3B002CFE6E /* INFViewExampleUITests.m */; };
+		11B23B3D2022EF6E002CFE6E /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
+		11B23B402022F2A3002CFE6E /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
+		11B23B412022F2A3002CFE6E /* INFView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11FBC37E2022EB5100B1012A /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
 		11FBC3832022EB5100B1012A /* INFViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3822022EB5100B1012A /* INFViewTests.m */; };
 		11FBC3852022EB5100B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC3772022EB5100B1012A /* INFView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		11FBC3912022ED6500B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC38F2022ED6500B1012A /* INFView.h */; };
+		11FBC3912022ED6500B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC38F2022ED6500B1012A /* INFView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11FBC3922022ED6500B1012A /* INFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3902022ED6500B1012A /* INFView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		11B23B222022EF3B002CFE6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11FBC36B2022EB5100B1012A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11B23B092022EF3B002CFE6E;
+			remoteInfo = INFViewExample;
+		};
+		11B23B2D2022EF3B002CFE6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11FBC36B2022EB5100B1012A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11B23B092022EF3B002CFE6E;
+			remoteInfo = INFViewExample;
+		};
+		11B23B3E2022F066002CFE6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11FBC36B2022EB5100B1012A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11FBC3732022EB5100B1012A;
+			remoteInfo = INFView;
+		};
 		11FBC37F2022EB5100B1012A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 11FBC36B2022EB5100B1012A /* Project object */;
@@ -24,7 +56,37 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		11B23B422022F2A4002CFE6E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				11B23B412022F2A3002CFE6E /* INFView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		11B23B0A2022EF3B002CFE6E /* INFViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INFViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B23B0C2022EF3B002CFE6E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		11B23B0D2022EF3B002CFE6E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		11B23B0F2022EF3B002CFE6E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		11B23B102022EF3B002CFE6E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		11B23B132022EF3B002CFE6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		11B23B152022EF3B002CFE6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		11B23B182022EF3B002CFE6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		11B23B1A2022EF3B002CFE6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11B23B1B2022EF3B002CFE6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		11B23B212022EF3B002CFE6E /* INFViewExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INFViewExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B23B252022EF3B002CFE6E /* INFViewExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewExampleTests.m; sourceTree = "<group>"; };
+		11B23B272022EF3B002CFE6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11B23B2C2022EF3B002CFE6E /* INFViewExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INFViewExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B23B302022EF3B002CFE6E /* INFViewExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewExampleUITests.m; sourceTree = "<group>"; };
+		11B23B322022EF3B002CFE6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11FBC3742022EB5100B1012A /* INFView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INFView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FBC3772022EB5100B1012A /* INFView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFView.h; sourceTree = "<group>"; };
 		11FBC3782022EB5100B1012A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -36,6 +98,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		11B23B072022EF3B002CFE6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B23B3D2022EF6E002CFE6E /* INFView.framework in Frameworks */,
+				11B23B402022F2A3002CFE6E /* INFView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B1E2022EF3B002CFE6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B292022EF3B002CFE6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		11FBC3702022EB5100B1012A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,12 +139,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11B23B0B2022EF3B002CFE6E /* INFViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				11B23B0C2022EF3B002CFE6E /* AppDelegate.h */,
+				11B23B0D2022EF3B002CFE6E /* AppDelegate.m */,
+				11B23B0F2022EF3B002CFE6E /* ViewController.h */,
+				11B23B102022EF3B002CFE6E /* ViewController.m */,
+				11B23B122022EF3B002CFE6E /* Main.storyboard */,
+				11B23B152022EF3B002CFE6E /* Assets.xcassets */,
+				11B23B172022EF3B002CFE6E /* LaunchScreen.storyboard */,
+				11B23B1A2022EF3B002CFE6E /* Info.plist */,
+				11B23B1B2022EF3B002CFE6E /* main.m */,
+			);
+			path = INFViewExample;
+			sourceTree = "<group>";
+		};
+		11B23B242022EF3B002CFE6E /* INFViewExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				11B23B252022EF3B002CFE6E /* INFViewExampleTests.m */,
+				11B23B272022EF3B002CFE6E /* Info.plist */,
+			);
+			path = INFViewExampleTests;
+			sourceTree = "<group>";
+		};
+		11B23B2F2022EF3B002CFE6E /* INFViewExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				11B23B302022EF3B002CFE6E /* INFViewExampleUITests.m */,
+				11B23B322022EF3B002CFE6E /* Info.plist */,
+			);
+			path = INFViewExampleUITests;
+			sourceTree = "<group>";
+		};
+		11B23B3C2022EF6E002CFE6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		11FBC36A2022EB5100B1012A = {
 			isa = PBXGroup;
 			children = (
 				11FBC3762022EB5100B1012A /* INFView */,
 				11FBC3812022EB5100B1012A /* INFViewTests */,
+				11B23B0B2022EF3B002CFE6E /* INFViewExample */,
+				11B23B242022EF3B002CFE6E /* INFViewExampleTests */,
+				11B23B2F2022EF3B002CFE6E /* INFViewExampleUITests */,
 				11FBC3752022EB5100B1012A /* Products */,
+				11B23B3C2022EF6E002CFE6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +198,9 @@
 			children = (
 				11FBC3742022EB5100B1012A /* INFView.framework */,
 				11FBC37D2022EB5100B1012A /* INFViewTests.xctest */,
+				11B23B0A2022EF3B002CFE6E /* INFViewExample.app */,
+				11B23B212022EF3B002CFE6E /* INFViewExampleTests.xctest */,
+				11B23B2C2022EF3B002CFE6E /* INFViewExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,14 +240,69 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
 				11FBC3912022ED6500B1012A /* INFView.h in Headers */,
+				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		11B23B092022EF3B002CFE6E /* INFViewExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11B23B392022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExample" */;
+			buildPhases = (
+				11B23B062022EF3B002CFE6E /* Sources */,
+				11B23B072022EF3B002CFE6E /* Frameworks */,
+				11B23B082022EF3B002CFE6E /* Resources */,
+				11B23B422022F2A4002CFE6E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11B23B3F2022F066002CFE6E /* PBXTargetDependency */,
+			);
+			name = INFViewExample;
+			productName = INFViewExample;
+			productReference = 11B23B0A2022EF3B002CFE6E /* INFViewExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		11B23B202022EF3B002CFE6E /* INFViewExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11B23B3A2022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExampleTests" */;
+			buildPhases = (
+				11B23B1D2022EF3B002CFE6E /* Sources */,
+				11B23B1E2022EF3B002CFE6E /* Frameworks */,
+				11B23B1F2022EF3B002CFE6E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11B23B232022EF3B002CFE6E /* PBXTargetDependency */,
+			);
+			name = INFViewExampleTests;
+			productName = INFViewExampleTests;
+			productReference = 11B23B212022EF3B002CFE6E /* INFViewExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		11B23B2B2022EF3B002CFE6E /* INFViewExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11B23B3B2022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExampleUITests" */;
+			buildPhases = (
+				11B23B282022EF3B002CFE6E /* Sources */,
+				11B23B292022EF3B002CFE6E /* Frameworks */,
+				11B23B2A2022EF3B002CFE6E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11B23B2E2022EF3B002CFE6E /* PBXTargetDependency */,
+			);
+			name = INFViewExampleUITests;
+			productName = INFViewExampleUITests;
+			productReference = 11B23B2C2022EF3B002CFE6E /* INFViewExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		11FBC3732022EB5100B1012A /* INFView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11FBC3882022EB5100B1012A /* Build configuration list for PBXNativeTarget "INFView" */;
@@ -160,6 +348,20 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Alexander;
 				TargetAttributes = {
+					11B23B092022EF3B002CFE6E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					11B23B202022EF3B002CFE6E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 11B23B092022EF3B002CFE6E;
+					};
+					11B23B2B2022EF3B002CFE6E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 11B23B092022EF3B002CFE6E;
+					};
 					11FBC3732022EB5100B1012A = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -176,6 +378,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 11FBC36A2022EB5100B1012A;
 			productRefGroup = 11FBC3752022EB5100B1012A /* Products */;
@@ -184,11 +387,38 @@
 			targets = (
 				11FBC3732022EB5100B1012A /* INFView */,
 				11FBC37C2022EB5100B1012A /* INFViewTests */,
+				11B23B092022EF3B002CFE6E /* INFViewExample */,
+				11B23B202022EF3B002CFE6E /* INFViewExampleTests */,
+				11B23B2B2022EF3B002CFE6E /* INFViewExampleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		11B23B082022EF3B002CFE6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B23B192022EF3B002CFE6E /* LaunchScreen.storyboard in Resources */,
+				11B23B162022EF3B002CFE6E /* Assets.xcassets in Resources */,
+				11B23B142022EF3B002CFE6E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B1F2022EF3B002CFE6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B2A2022EF3B002CFE6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		11FBC3722022EB5100B1012A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +436,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		11B23B062022EF3B002CFE6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B23B112022EF3B002CFE6E /* ViewController.m in Sources */,
+				11B23B1C2022EF3B002CFE6E /* main.m in Sources */,
+				11B23B0E2022EF3B002CFE6E /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B1D2022EF3B002CFE6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B23B262022EF3B002CFE6E /* INFViewExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B23B282022EF3B002CFE6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B23B312022EF3B002CFE6E /* INFViewExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		11FBC36F2022EB5100B1012A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,6 +481,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		11B23B232022EF3B002CFE6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11B23B092022EF3B002CFE6E /* INFViewExample */;
+			targetProxy = 11B23B222022EF3B002CFE6E /* PBXContainerItemProxy */;
+		};
+		11B23B2E2022EF3B002CFE6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11B23B092022EF3B002CFE6E /* INFViewExample */;
+			targetProxy = 11B23B2D2022EF3B002CFE6E /* PBXContainerItemProxy */;
+		};
+		11B23B3F2022F066002CFE6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11FBC3732022EB5100B1012A /* INFView */;
+			targetProxy = 11B23B3E2022F066002CFE6E /* PBXContainerItemProxy */;
+		};
 		11FBC3802022EB5100B1012A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 11FBC3732022EB5100B1012A /* INFView */;
@@ -232,7 +503,112 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		11B23B122022EF3B002CFE6E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11B23B132022EF3B002CFE6E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		11B23B172022EF3B002CFE6E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11B23B182022EF3B002CFE6E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		11B23B332022EF3B002CFE6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		11B23B342022EF3B002CFE6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		11B23B352022EF3B002CFE6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INFViewExample.app/INFViewExample";
+			};
+			name = Debug;
+		};
+		11B23B362022EF3B002CFE6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INFViewExample.app/INFViewExample";
+			};
+			name = Release;
+		};
+		11B23B372022EF3B002CFE6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = INFViewExample;
+			};
+			name = Debug;
+		};
+		11B23B382022EF3B002CFE6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6B66NW5JX;
+				INFOPLIST_FILE = INFViewExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = my.github.alexandergr.INFViewExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = INFViewExample;
+			};
+			name = Release;
+		};
 		11FBC3862022EB5100B1012A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -412,6 +788,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		11B23B392022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11B23B332022EF3B002CFE6E /* Debug */,
+				11B23B342022EF3B002CFE6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11B23B3A2022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11B23B352022EF3B002CFE6E /* Debug */,
+				11B23B362022EF3B002CFE6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11B23B3B2022EF3B002CFE6E /* Build configuration list for PBXNativeTarget "INFViewExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11B23B372022EF3B002CFE6E /* Debug */,
+				11B23B382022EF3B002CFE6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		11FBC36E2022EB5100B1012A /* Build configuration list for PBXProject "INFView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

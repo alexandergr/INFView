@@ -10,6 +10,8 @@
 		11FBC37E2022EB5100B1012A /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
 		11FBC3832022EB5100B1012A /* INFViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3822022EB5100B1012A /* INFViewTests.m */; };
 		11FBC3852022EB5100B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC3772022EB5100B1012A /* INFView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11FBC3912022ED6500B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC38F2022ED6500B1012A /* INFView.h */; };
+		11FBC3922022ED6500B1012A /* INFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3902022ED6500B1012A /* INFView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		11FBC37D2022EB5100B1012A /* INFViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INFViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FBC3822022EB5100B1012A /* INFViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewTests.m; sourceTree = "<group>"; };
 		11FBC3842022EB5100B1012A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11FBC38F2022ED6500B1012A /* INFView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFView.h; sourceTree = "<group>"; };
+		11FBC3902022ED6500B1012A /* INFView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 		11FBC3762022EB5100B1012A /* INFView */ = {
 			isa = PBXGroup;
 			children = (
+				11FBC38E2022ED3200B1012A /* View */,
 				11FBC3772022EB5100B1012A /* INFView.h */,
 				11FBC3782022EB5100B1012A /* Info.plist */,
 			);
@@ -86,6 +91,15 @@
 			path = INFViewTests;
 			sourceTree = "<group>";
 		};
+		11FBC38E2022ED3200B1012A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11FBC38F2022ED6500B1012A /* INFView.h */,
+				11FBC3902022ED6500B1012A /* INFView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -94,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
+				11FBC3912022ED6500B1012A /* INFView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11FBC3922022ED6500B1012A /* INFView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

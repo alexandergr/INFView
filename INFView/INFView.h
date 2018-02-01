@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double INFViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char INFViewVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <INFView/PublicHeader.h>
-
+#import <INFView/View/INFView.h>
 

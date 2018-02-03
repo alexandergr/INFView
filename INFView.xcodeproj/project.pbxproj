@@ -18,7 +18,7 @@
 		11B23B3D2022EF6E002CFE6E /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
 		11B23B412022F2A3002CFE6E /* INFView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11FBC37E2022EB5100B1012A /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
-		11FBC3832022EB5100B1012A /* INFViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3822022EB5100B1012A /* INFViewTests.m */; };
+		11FBC3832022EB5100B1012A /* INFViewLayoutManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3822022EB5100B1012A /* INFViewLayoutManagerTests.m */; };
 		11FBC3852022EB5100B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC3772022EB5100B1012A /* INFView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11FBC3912022ED6500B1012A /* INFScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC38F2022ED6500B1012A /* INFScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11FBC3922022ED6500B1012A /* INFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3902022ED6500B1012A /* INFScrollView.m */; };
@@ -95,7 +95,7 @@
 		11FBC3772022EB5100B1012A /* INFView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFView.h; sourceTree = "<group>"; };
 		11FBC3782022EB5100B1012A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11FBC37D2022EB5100B1012A /* INFViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INFViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		11FBC3822022EB5100B1012A /* INFViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewTests.m; sourceTree = "<group>"; };
+		11FBC3822022EB5100B1012A /* INFViewLayoutManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewLayoutManagerTests.m; sourceTree = "<group>"; };
 		11FBC3842022EB5100B1012A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11FBC38F2022ED6500B1012A /* INFScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFScrollView.h; sourceTree = "<group>"; };
 		11FBC3902022ED6500B1012A /* INFScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFScrollView.m; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		11FBC3812022EB5100B1012A /* INFViewTests */ = {
 			isa = PBXGroup;
 			children = (
-				11FBC3822022EB5100B1012A /* INFViewTests.m */,
+				11FBC3822022EB5100B1012A /* INFViewLayoutManagerTests.m */,
 				11FBC3842022EB5100B1012A /* Info.plist */,
 			);
 			path = INFViewTests;
@@ -246,10 +246,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				845D861F20235215002906ED /* INFViewOrientation.h in Headers */,
-				845D861D20234F3A002906ED /* INFViewLayoutAttributes.h in Headers */,
 				11FBC3912022ED6500B1012A /* INFScrollView.h in Headers */,
 				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
 				845D861820234C6C002906ED /* INFViewLayoutManager.h in Headers */,
+				845D861D20234F3A002906ED /* INFViewLayoutAttributes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11FBC3832022EB5100B1012A /* INFViewTests.m in Sources */,
+				11FBC3832022EB5100B1012A /* INFViewLayoutManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

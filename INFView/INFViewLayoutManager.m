@@ -61,13 +61,13 @@
 }
 
 - (void)calculateLayoutChangesForNewOffset {
-    if (self.contentSpan >= self.viewSize.width) {
-        
+    if (self.contentSpan > self.viewSize.width) {
+
         if (self.contentOffset.x < self.viewSize.width / 2.0) {
             _contentOffset = CGPointMake(self.viewSize.width + self.contentSpan - self.contentOffset.x, self.contentOffset.y);
             [self.delegate infViewLayoutManager:self updatedContentOffset:self.contentOffset];
             
-        } else if (self.contentOffset.x > self.contentSpan + self.viewSize.width / 2.0) {
+        } else if (self.contentOffset.x > 1 + self.contentSpan + self.viewSize.width / 2.0) {
             _contentOffset = CGPointMake(self.contentOffset.x - self.contentSpan, self.contentOffset.y);
             [self.delegate infViewLayoutManager:self updatedContentOffset:self.contentOffset];
         }

@@ -7,14 +7,14 @@
 //
 
 #import "INFScrollView.h"
-#import "INFViewLayoutManager.h"
+#import "INFLayoutManager.h"
 
-@interface INFScrollView () <INFViewLayoutManagerDelegate>
+@interface INFScrollView () <INFLayoutTarget>
 
 @property (nonatomic) NSInteger numberOfArrangedSubViews;
-@property (strong, nonatomic) NSMutableArray* arrangedSubViews;
+@property (strong, nonatomic) NSMutableArray* arrangedViews;
 
-@property (strong, nonatomic) INFViewLayoutManager* layoutManager;
+@property (strong, nonatomic) INFLayoutManager* layoutManager;
 
 @end
 
@@ -30,22 +30,22 @@
 }
 
 - (void)reloadData {
-    for (UIView* subView in self.arrangedSubViews) {
+    for (UIView* subView in self.arrangedViews) {
         [subView removeFromSuperview];
     }
 
     self.numberOfArrangedSubViews = [self.dataSource numberOfSubViewsInINFView:self];
-    self.arrangedSubViews = [NSMutableArray new];
+    self.arrangedViews = [NSMutableArray new];
 
     for (NSInteger i = 0; i < self.numberOfArrangedSubViews; i++) {
         UIView* subView = [self.dataSource infView:self subViewAtIndex:i];
-        [self.arrangedSubViews addObject:subView];
+        [self.arrangedViews addObject:subView];
         [self addSubview:subView];
     }
     
-    self.layoutManager = [INFViewLayoutManager new];
+    self.layoutManager = [INFLayoutManager new];
     self.layoutManager.viewSize = self.bounds.size;
-    self.layoutManager.delegate = self;
+    self.layoutManager.layoutTarget = self;
     [self.layoutManager arrangeViews];
 }
 
@@ -63,20 +63,20 @@
 
 #pragma mark - INFViewLayoutMangerDelegate
 
-- (NSInteger)numberOfItemsInInfViewLayoutManager:(INFViewLayoutManager*)layout {
+- (NSInteger)numberOfArrangedViews {
     return self.numberOfArrangedSubViews;
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedContentSize:(CGSize)contentSize {
+- (void)updateContentSize:(CGSize)contentSize {
     self.contentSize = contentSize;
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedContentOffset:(CGPoint)contentOffset {
+- (void)updateContentOffset:(CGPoint)contentOffset {
     self.contentOffset = contentOffset;
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedAttributes:(INFViewLayoutAttributes *)attributes {
-    UIView* subView = self.arrangedSubViews[attributes.index];
+- (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
+    UIView* subView = self.arrangedViews[attributes.index];
     subView.center = attributes.center;
 }
 

@@ -1,31 +1,31 @@
 //
-//  INFViewLayoutManager.m
+//  INFLayoutManager.m
 //  INFView
 //
 //  Created by Oleksandr Hrushovyi on 2/1/18.
 //  Copyright © 2018 Alexander. All rights reserved.
 //
 
-#import "INFViewLayoutManager.h"
+#import "INFLayoutManager.h"
 
-@interface INFViewLayoutManager()
+@interface INFLayoutManager()
 
-@property (nonatomic) NSInteger numberOfItems;
+@property (nonatomic) NSInteger numberOfViews;
 @property (strong, nonatomic) NSArray<INFViewLayoutAttributes*>* layoutAttributes;
 @property (nonatomic) NSInteger contentSpan;
 @property (nonatomic) BOOL needsReArrange;
 
 @end
 
-@implementation INFViewLayoutManager
+@implementation INFLayoutManager
 
 - (void)arrangeViews {
     
     self.contentSpan = 0;
-    self.numberOfItems = [self.delegate numberOfItemsInInfViewLayoutManager:self];
+    self.numberOfViews = [self.layoutTarget numberOfArrangedViews];
     
     NSMutableArray<INFViewLayoutAttributes*>* layoutAttributes = [NSMutableArray new];
-    for (NSInteger i = 0; i < self.numberOfItems; i++) {
+    for (NSInteger i = 0; i < self.numberOfViews; i++) {
         INFViewLayoutAttributes* attributes = [INFViewLayoutAttributes new];
         attributes.index = i;
         attributes.containerSize = self.viewSize;
@@ -48,10 +48,10 @@
     }
     
     for (INFViewLayoutAttributes* attributes in self.layoutAttributes) {
-        [self.delegate infViewLayoutManager:self updatedAttributes:attributes];
+        [self.layoutTarget setArrangedViewAttributes:attributes];
     }
     
-    [self.delegate infViewLayoutManager:self updatedContentSize:contentSize];
+    [self.layoutTarget updateContentSize:contentSize];
 }
 
 - (void)reArrangeIfNeeded {
@@ -65,11 +65,11 @@
 
         if (self.contentOffset.x < self.viewSize.width / 2.0) {
             _contentOffset = CGPointMake(self.viewSize.width + self.contentSpan - self.contentOffset.x, self.contentOffset.y);
-            [self.delegate infViewLayoutManager:self updatedContentOffset:self.contentOffset];
+            [self.layoutTarget updateContentOffset:self.contentOffset];
             
         } else if (self.contentOffset.x > 1 + self.contentSpan + self.viewSize.width / 2.0) {
             _contentOffset = CGPointMake(self.contentOffset.x - self.contentSpan, self.contentOffset.y);
-            [self.delegate infViewLayoutManager:self updatedContentOffset:self.contentOffset];
+            [self.layoutTarget updateContentOffset:self.contentOffset];
         }
         
         INFViewLayoutAttributes* firstItemAttributes = self.layoutAttributes.firstObject;
@@ -79,15 +79,15 @@
             lastItemAttributes.center = CGPointMake(self.viewSize.width + self.contentSpan - lastItemAttributes.containerSize.width / 2.0, lastItemAttributes.center.y);
             firstItemAttributes.center = CGPointMake(self.viewSize.width + self.contentSpan + firstItemAttributes.containerSize.width / 2.0, firstItemAttributes.center.y);
             
-            [self.delegate infViewLayoutManager:self updatedAttributes:firstItemAttributes];
-            [self.delegate infViewLayoutManager:self updatedAttributes:lastItemAttributes];
+            [self.layoutTarget setArrangedViewAttributes:firstItemAttributes];
+            [self.layoutTarget setArrangedViewAttributes:lastItemAttributes];
             
         } else if (self.contentOffset.x < self.viewSize.width * 2.0) {
             lastItemAttributes.center = CGPointMake(self.viewSize.width - lastItemAttributes.containerSize.width / 2.0, lastItemAttributes.center.y);
             firstItemAttributes.center = CGPointMake(self.viewSize.width + firstItemAttributes.containerSize.width / 2.0, firstItemAttributes.center.y);
             
-            [self.delegate infViewLayoutManager:self updatedAttributes:firstItemAttributes];
-            [self.delegate infViewLayoutManager:self updatedAttributes:lastItemAttributes];
+            [self.layoutTarget setArrangedViewAttributes:firstItemAttributes];
+            [self.layoutTarget setArrangedViewAttributes:lastItemAttributes];
         }
     }
 }

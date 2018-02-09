@@ -1,5 +1,5 @@
 //
-//  INFViewLayoutManagerTests.m
+//  INFLayoutManagerTests.m
 //  INFViewTests
 //
 //  Created by Alexander on 2/1/18.
@@ -7,43 +7,43 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "INFViewLayoutManager.h"
+#import "INFLayoutManager.h"
 
-@interface INFViewLayoutManagerTests : XCTestCase <INFViewLayoutManagerDelegate>
+@interface INFLayoutManagerTests : XCTestCase <INFLayoutTarget>
 
 @property (nonatomic) NSInteger numberOfItems;
 
-@property (copy, nonatomic) void(^updatedAttributesCallBack)(INFViewLayoutAttributes*);
-@property (copy, nonatomic) void(^updatedContentSizeCallBack)(CGSize);
-@property (copy, nonatomic) void(^updatedContentOffsetCallBack)(CGPoint);
+@property (copy, nonatomic) void(^updateAttributesCallBack)(INFViewLayoutAttributes*);
+@property (copy, nonatomic) void(^updateContentSizeCallBack)(CGSize);
+@property (copy, nonatomic) void(^updateContentOffsetCallBack)(CGPoint);
 
 @end
 
-@implementation INFViewLayoutManagerTests
+@implementation INFLayoutManagerTests
 
 - (void)setUp {
     [super setUp];
     
-    self.updatedAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
+    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
     };
-    self.updatedContentSizeCallBack = ^(CGSize contentSize) {
+    self.updateContentSizeCallBack = ^(CGSize contentSize) {
     };
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
     };
 }
 
 - (void)tearDown {
     [super tearDown];
     
-    self.updatedAttributesCallBack = nil;
-    self.updatedContentSizeCallBack = nil;
-    self.updatedContentOffsetCallBack = nil;
+    self.updateAttributesCallBack = nil;
+    self.updateContentSizeCallBack = nil;
+    self.updateContentOffsetCallBack = nil;
 }
 
 - (void)testInitialLayout {
-    INFViewLayoutManager* layout = [INFViewLayoutManager new];
+    INFLayoutManager* layout = [INFLayoutManager new];
 
-    layout.delegate = self;
+    layout.layoutTarget = self;
     layout.viewSize = CGSizeMake(100, 100);
     self.numberOfItems = 3;
     
@@ -53,7 +53,7 @@
     XCTestExpectation* extraLayoutCallExpextation = [[XCTestExpectation alloc] initWithDescription:@"Extra layout call"];
     extraLayoutCallExpextation.inverted = YES;
    
-    self.updatedAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
+    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
         if (attributes.index == 0) {
             if (attributes.center.x == 150 && attributes.center.y == 50) {
                 [view1LayoutExpectation fulfill];
@@ -72,7 +72,7 @@
     };
     
     XCTestExpectation* contentSizeExpextation = [[XCTestExpectation alloc] initWithDescription:@"Content size"];
-    self.updatedContentSizeCallBack = ^(CGSize contentSize) {
+    self.updateContentSizeCallBack = ^(CGSize contentSize) {
         if (contentSize.width == 500 && contentSize.height == 100) {
             [contentSizeExpextation fulfill];
         }
@@ -83,9 +83,9 @@
 }
 
 - (void)testNoInfiniteScrolling {
-    INFViewLayoutManager* layout = [INFViewLayoutManager new];
+    INFLayoutManager* layout = [INFLayoutManager new];
     
-    layout.delegate = self;
+    layout.layoutTarget = self;
     layout.viewSize = CGSizeMake(100, 100);
     self.numberOfItems = 1;
     
@@ -94,7 +94,7 @@
     extraLayoutCallExpextation.inverted = YES;
     XCTestExpectation* contentSizeExpextation = [[XCTestExpectation alloc] initWithDescription:@"Content size"];
     
-    self.updatedAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
+    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
         if (attributes.index == 0) {
             if (attributes.center.x == 50 && attributes.center.y == 50) {
                 [view1LayoutExpectation fulfill];
@@ -104,7 +104,7 @@
         }
     };
     
-    self.updatedContentSizeCallBack = ^(CGSize contentSize) {
+    self.updateContentSizeCallBack = ^(CGSize contentSize) {
         if (contentSize.width == 100 && contentSize.height == 100) {
             [contentSizeExpextation fulfill];
         }
@@ -116,14 +116,14 @@
 }
 
 -(void)testOffsetChangesOnScrolling{
-    INFViewLayoutManager* layout = [INFViewLayoutManager new];
+    INFLayoutManager* layout = [INFLayoutManager new];
     layout.viewSize = CGSizeMake(100, 100);
     self.numberOfItems = 3;
-    layout.delegate = self;
+    layout.layoutTarget = self;
     [layout arrangeViews];
     
     XCTestExpectation* shiftFromZero = [[XCTestExpectation alloc] initWithDescription:@"shift from zero"];
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         if (contentOffset.x == 400) {
             [shiftFromZero fulfill];
         }
@@ -132,7 +132,7 @@
     [self waitForExpectations:@[shiftFromZero] timeout:1.0];
     
     XCTestExpectation* backToInitialPosition = [[XCTestExpectation alloc] initWithDescription:@"back to initial position"];
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         if (contentOffset.x == 100) {
             [backToInitialPosition fulfill];
         }
@@ -142,7 +142,7 @@
     
     XCTestExpectation* scrollAtBeginOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at begin - no offset changes"];
     scrollAtBeginOffset.inverted = YES;
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtBeginOffset fulfill];
     };
     layout.contentOffset = CGPointMake(170, 0);
@@ -150,14 +150,14 @@
     
     XCTestExpectation* scrollAtMiddleOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at middle - no offset changes"];
     scrollAtMiddleOffset.inverted = YES;
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtMiddleOffset fulfill];
     };
     layout.contentOffset = CGPointMake(300, 0);
     [self waitForExpectations:@[scrollAtMiddleOffset] timeout:1.0];
     
     XCTestExpectation* scrollAtEndOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at end - back to initial position"];
-    self.updatedContentOffsetCallBack = ^(CGPoint contentOffset) {
+    self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         if (contentOffset.x == 55) {
             [scrollAtEndOffset fulfill];
         }
@@ -167,22 +167,22 @@
 }
 
 
-#pragma mark - INFViewLayoutManagerDelegate
+#pragma mark - INFLayoutTarget
 
-- (NSInteger)numberOfItemsInInfViewLayoutManager:(INFViewLayoutManager *)layout {
+- (NSInteger)numberOfArrangedViews {
     return self.numberOfItems;
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedAttributes:(INFViewLayoutAttributes *)attributes {
-    self.updatedAttributesCallBack(attributes);
+- (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
+    self.updateAttributesCallBack(attributes);
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedContentSize:(CGSize)contentSize {
-    self.updatedContentSizeCallBack(contentSize);
+- (void)updateContentSize:(CGSize)contentSize {
+    self.updateContentSizeCallBack(contentSize);
 }
 
-- (void)infViewLayoutManager:(INFViewLayoutManager *)layout updatedContentOffset:(CGPoint)contentOffset {
-    self.updatedContentOffsetCallBack(contentOffset);
+- (void)updateContentOffset:(CGPoint)contentOffset {
+    self.updateContentOffsetCallBack(contentOffset);
 }
 
 @end

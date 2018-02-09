@@ -21,7 +21,7 @@
 
 @protocol INFViewDataSource
 @required
-- (NSInteger) numberOfSubViewsInINFView:(INFScrollView*)infView;
-- (UIView*) infView:(INFScrollView*)infView subViewAtIndex:(NSInteger)index;
+- (NSInteger)numberOfSubViewsInINFView:(INFScrollView*)infView;
+- (UIView*)infView:(INFScrollView*)infView subViewAtIndex:(NSInteger)index;
 
 @end

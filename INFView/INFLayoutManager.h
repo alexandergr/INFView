@@ -8,19 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
-#import "INFViewLayoutAttributes.h"
-#import "INFViewOrientation.h"
+#import "INFLayoutStrategy.h"
 
 @protocol INFLayoutTarget;
 
 @interface INFLayoutManager: NSObject
 
-@property (nonatomic) CGSize viewSize;
-@property (nonatomic) CGPoint contentOffset;
+@property (nonatomic) CGSize scrollViewSize;
 @property (weak, nonatomic) id<INFLayoutTarget> layoutTarget;
+@property (strong, nonatomic) id<INFLayoutStrategy> layoutStrategy;
+@property (nonatomic) INFOrientation orientation;
 
-- (void) arrangeViews;
-- (void) reArrangeIfNeeded;
+- (instancetype)initWithLayoutStrategyType:(INFLayoutStrategyType)layoutStrategyType NS_DESIGNATED_INITIALIZER;
+- (void)arrangeViews;
+- (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset;
 
 @end
 

@@ -20,21 +20,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdA-4t-er4" customClass="INFScrollView">
-                                <rect key="frame" x="9.5" y="177" width="356" height="333.5"/>
+                                <rect key="frame" x="18.5" y="88.5" width="337.5" height="166.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hU-wN-bV4" customClass="INFScrollView">
+                                <rect key="frame" x="19" y="263" width="337.5" height="333.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="gdA-4t-er4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="19:20" id="9ga-aa-bUe"/>
+                            <constraint firstItem="gdA-4t-er4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="9:10" id="9ga-aa-bUe"/>
                             <constraint firstItem="gdA-4t-er4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NT7-rf-AOR"/>
-                            <constraint firstItem="gdA-4t-er4" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1:2" id="TwW-xr-95G"/>
-                            <constraint firstItem="gdA-4t-er4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="mnZ-BW-x0E"/>
+                            <constraint firstItem="gdA-4t-er4" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1:4" id="TwW-xr-95G"/>
+                            <constraint firstItem="0hU-wN-bV4" firstAttribute="top" secondItem="gdA-4t-er4" secondAttribute="bottom" constant="8" symbolic="YES" id="UDl-Jj-r11"/>
+                            <constraint firstItem="0hU-wN-bV4" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1:2" id="ezq-lo-XyS"/>
+                            <constraint firstItem="0hU-wN-bV4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="mkx-sJ-SGr"/>
+                            <constraint firstItem="gdA-4t-er4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1:2" id="mnZ-BW-x0E"/>
+                            <constraint firstItem="0hU-wN-bV4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="9:10" id="tXU-Ry-kBA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="infView" destination="gdA-4t-er4" id="vJj-wc-s2X"/>
+                        <outlet property="horizontalInfScrollView" destination="gdA-4t-er4" id="GGM-U6-8ip"/>
+                        <outlet property="verticalInfScrollView" destination="0hU-wN-bV4" id="DLV-x4-fFf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

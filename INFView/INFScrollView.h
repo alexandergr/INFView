@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "INFViewOrientation.h"
+#import "INFOrientation.h"
 
 @protocol INFViewDataSource;
 
 @interface INFScrollView : UIScrollView
 
 @property (weak, nonatomic) id<INFViewDataSource> dataSource;
+@property (nonatomic) INFOrientation orientation;
 
 -(void)reloadData;
 

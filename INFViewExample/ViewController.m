@@ -11,9 +11,11 @@
 
 @interface ViewController () <INFViewDataSource>
 
-@property (weak, nonatomic) IBOutlet INFScrollView *infView;
+@property (weak, nonatomic) IBOutlet INFScrollView *horizontalInfScrollView;
+@property (weak, nonatomic) IBOutlet INFScrollView *verticalInfScrollView;
 
-@property (strong, nonatomic) NSArray<UIView*>* arrangedViews;
+@property (strong, nonatomic) NSArray<UIView*>* horizontalyArrangedViews;
+@property (strong, nonatomic) NSArray<UIView*>* verticallyArrangedViews;
 
 @end
 
@@ -22,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.arrangedViews = @[
+    self.horizontalyArrangedViews = @[
         [self createViewWithColor:UIColor.redColor],
         [self createViewWithColor:UIColor.greenColor],
         [self createViewWithColor:UIColor.blueColor],
@@ -30,7 +32,19 @@
         [self createViewWithColor:UIColor.orangeColor]
         ];
 
-    self.infView.dataSource = self;
+    self.verticallyArrangedViews = @[
+                                      [self createViewWithColor:UIColor.magentaColor],
+                                      [self createViewWithColor:UIColor.cyanColor],
+                                      [self createViewWithColor:UIColor.purpleColor],
+                                      [self createViewWithColor:UIColor.blackColor],
+                                      [self createViewWithColor:UIColor.whiteColor]
+                                      ];
+
+    self.horizontalInfScrollView.dataSource = self;
+
+    self.verticalInfScrollView.orientation = INFOrientationVertical;
+    self.verticalInfScrollView.dataSource = self;
+
 }
 - (UIView*)createViewWithColor:(UIColor*)color {
     CGRect frame = CGRectMake(0, 0, 100, 100);
@@ -42,11 +56,23 @@
 #pragma mark - INFViewDataSource
 
 - (NSInteger)numberOfSubViewsInINFView:(INFScrollView *)infView {
-    return self.arrangedViews.count;
+    if (infView == self.horizontalInfScrollView) {
+        return self.horizontalyArrangedViews.count;
+    }
+    if (infView == self.verticalInfScrollView) {
+        return self.verticallyArrangedViews.count;
+    }
+    return 0;
 }
 
 - (UIView*)infView:(INFScrollView *)infView subViewAtIndex:(NSInteger)index {
-    return self.arrangedViews[index];
+    if (infView == self.horizontalInfScrollView) {
+        return self.horizontalyArrangedViews[index];
+    }
+    if (infView == self.verticalInfScrollView) {
+        return self.verticallyArrangedViews[index];
+    }
+    return nil;
 }
 
 @end

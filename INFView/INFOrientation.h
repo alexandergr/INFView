@@ -1,5 +1,5 @@
 //
-//  INFViewOrientation.h
+//  INFOrientation.h
 //  INFView
 //
 //  Created by Oleksandr Hrushovyi on 2/1/18.
@@ -7,7 +7,6 @@
 //
 
 typedef enum : NSUInteger {
-    INFViewOrientationHorizontal,
-    INFViewOrientationVertical
-} INFViewOrientation;
-
+    INFOrientationHorizontal,
+    INFOrientationVertical
+} INFOrientation;

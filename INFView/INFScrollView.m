@@ -44,21 +44,21 @@
     }
     
     self.layoutManager = [INFLayoutManager new];
-    self.layoutManager.viewSize = self.bounds.size;
+    self.layoutManager.orientation = self.orientation;
+    self.layoutManager.scrollViewSize = self.bounds.size;
     self.layoutManager.layoutTarget = self;
     [self.layoutManager arrangeViews];
 }
 
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
-    self.layoutManager.viewSize = bounds.size;
+    self.layoutManager.scrollViewSize = bounds.size;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    [self.layoutManager reArrangeIfNeeded];
-    self.layoutManager.contentOffset = self.contentOffset;
+    [self.layoutManager updateArrangedViewsForNewContentOffset:self.contentOffset];
 }
 
 #pragma mark - INFViewLayoutMangerDelegate

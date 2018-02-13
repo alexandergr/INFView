@@ -41,10 +41,10 @@
 }
 
 - (void)testInitialLayout {
-    INFLayoutManager* layout = [INFLayoutManager new];
+    INFLayoutManager* layoutManager = [INFLayoutManager new];
 
-    layout.layoutTarget = self;
-    layout.viewSize = CGSizeMake(100, 100);
+    layoutManager.layoutTarget = self;
+    layoutManager.scrollViewSize = CGSizeMake(100, 100);
     self.numberOfItems = 3;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
@@ -63,7 +63,7 @@
                 [view2LayoutExpectation fulfill];
             }
         } else if (attributes.index == 2) {
-            if (attributes.center.x == 350 && attributes.center.y == 50) {
+            if (attributes.center.x == 50 && attributes.center.y == 50) {
                 [view3LayoutExpextation fulfill];
             }
         } else {
@@ -78,15 +78,15 @@
         }
     };
     
-    [layout arrangeViews];
+    [layoutManager arrangeViews];
     [self waitForExpectations:@[view1LayoutExpectation, view2LayoutExpectation, view3LayoutExpextation, extraLayoutCallExpextation, contentSizeExpextation] timeout:1.0];
 }
 
 - (void)testNoInfiniteScrolling {
-    INFLayoutManager* layout = [INFLayoutManager new];
+    INFLayoutManager* layoutManager = [INFLayoutManager new];
     
-    layout.layoutTarget = self;
-    layout.viewSize = CGSizeMake(100, 100);
+    layoutManager.layoutTarget = self;
+    layoutManager.scrollViewSize = CGSizeMake(100, 100);
     self.numberOfItems = 1;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
@@ -110,25 +110,25 @@
         }
     };
     
-    [layout arrangeViews];
+    [layoutManager arrangeViews];
     
     [self waitForExpectations:@[view1LayoutExpectation, extraLayoutCallExpextation, contentSizeExpextation] timeout:1.0];
 }
 
 -(void)testOffsetChangesOnScrolling{
-    INFLayoutManager* layout = [INFLayoutManager new];
-    layout.viewSize = CGSizeMake(100, 100);
+    INFLayoutManager* layoutManager = [INFLayoutManager new];
+    layoutManager.scrollViewSize = CGSizeMake(100, 100);
     self.numberOfItems = 3;
-    layout.layoutTarget = self;
-    [layout arrangeViews];
+    layoutManager.layoutTarget = self;
+    [layoutManager arrangeViews];
     
     XCTestExpectation* shiftFromZero = [[XCTestExpectation alloc] initWithDescription:@"shift from zero"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
-        if (contentOffset.x == 400) {
+        if (contentOffset.x == 100) {
             [shiftFromZero fulfill];
         }
     };
-    layout.contentOffset = CGPointMake(0, 0);
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(0, 0)];
     [self waitForExpectations:@[shiftFromZero] timeout:1.0];
     
     XCTestExpectation* backToInitialPosition = [[XCTestExpectation alloc] initWithDescription:@"back to initial position"];
@@ -137,7 +137,7 @@
             [backToInitialPosition fulfill];
         }
     };
-    layout.contentOffset = CGPointMake(400, 0);
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(400, 0)];
     [self waitForExpectations:@[backToInitialPosition] timeout:1.0];
     
     XCTestExpectation* scrollAtBeginOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at begin - no offset changes"];
@@ -145,7 +145,7 @@
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtBeginOffset fulfill];
     };
-    layout.contentOffset = CGPointMake(170, 0);
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(170, 0)];
     [self waitForExpectations:@[scrollAtBeginOffset] timeout:1.0];
     
     XCTestExpectation* scrollAtMiddleOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at middle - no offset changes"];
@@ -153,7 +153,7 @@
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtMiddleOffset fulfill];
     };
-    layout.contentOffset = CGPointMake(300, 0);
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(300, 0)];
     [self waitForExpectations:@[scrollAtMiddleOffset] timeout:1.0];
     
     XCTestExpectation* scrollAtEndOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at end - back to initial position"];
@@ -162,7 +162,7 @@
             [scrollAtEndOffset fulfill];
         }
     };
-    layout.contentOffset = CGPointMake(355, 0);
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(355, 0)];
     [self waitForExpectations:@[scrollAtEndOffset] timeout:0];
 }
 

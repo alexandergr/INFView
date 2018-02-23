@@ -12,10 +12,9 @@
 
 @interface INFSimpleLayoutStrategy : NSObject<INFLayoutStrategy>
 
-@property (nonatomic) CGSize scrollViewSize;
-@property (nonatomic) CGPoint contentOffset;
-@property (strong, nonatomic) NSArray<NSValue*>* sizesOfArrangedViews;
 @property (nonatomic) INFOrientation orientation;
+@property (nonatomic) CGSize scrollViewSize;
+@property (strong, nonatomic) NSArray<NSValue*>* sizesOfArrangedViews;
 
-- (INFViewLayout*)layoutArrangedViews;
+- (INFViewLayout*)layoutArrangedViewsForContentOffset:(CGPoint)contentOffset;
 @end

@@ -11,27 +11,29 @@
 
 @interface INFSimpleLayoutTest : XCTestCase
 
+@property (strong, nonatomic) INFSimpleLayoutStrategy* layoutStrategy;
+
 @end
 
 @implementation INFSimpleLayoutTest
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    self.layoutStrategy = [INFSimpleLayoutStrategy new];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.layoutStrategy = nil;
+    
     [super tearDown];
 }
 
 - (void)testInitialLayout {
-    INFSimpleLayoutStrategy* layoutStrategy = [INFSimpleLayoutStrategy new];
-    layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
-    layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0))];
-    layoutStrategy.contentOffset = CGPointMake(0.0, 0.0);
-    layoutStrategy.orientation = INFOrientationHorizontal;
-    INFViewLayout* layout = [layoutStrategy layoutArrangedViews];
+    self.layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
+    self.layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0))];
+    self.layoutStrategy.orientation = INFOrientationHorizontal;
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(0.0, 0.0)];
 
     XCTAssertEqual(layout.contentSize.width, 600.0);
     XCTAssertEqual(layout.contentSize.height, 120.0);
@@ -53,12 +55,10 @@
 }
 
 - (void)testVerticalLayout {
-    INFSimpleLayoutStrategy* layoutStrategy = [INFSimpleLayoutStrategy new];
-    layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
-    layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0))];
-    layoutStrategy.contentOffset = CGPointMake(0.0, 0.0);
-    layoutStrategy.orientation = INFOrientationVertical;
-    INFViewLayout* layout = [layoutStrategy layoutArrangedViews];
+    self.layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
+    self.layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0))];
+    self.layoutStrategy.orientation = INFOrientationVertical;
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(0.0, 0.0)];
 
     XCTAssertEqual(layout.contentSize.width, 100.0);
     XCTAssertEqual(layout.contentSize.height, 720.0);

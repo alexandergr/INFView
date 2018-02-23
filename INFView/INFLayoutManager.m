@@ -48,17 +48,16 @@
     return viewSizes;
 }
 
-- (INFViewLayout *)calculateLayoutForContentOffset:(const CGPoint *)contentOffset {
+- (INFViewLayout *)calculateLayoutForContentOffset:(CGPoint)contentOffset {
     self.layoutStrategy.scrollViewSize = self.scrollViewSize;
     self.layoutStrategy.sizesOfArrangedViews = [self getArrangedViewSizes];
-    self.layoutStrategy.contentOffset = *contentOffset;
 
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViews];
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:contentOffset];
     return layout;
 }
 
 - (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset {
-    INFViewLayout * layout = [self calculateLayoutForContentOffset:&contentOffset];
+    INFViewLayout * layout = [self calculateLayoutForContentOffset:contentOffset];
 
     [self.layoutTarget updateContentSize:layout.contentSize];
     if (contentOffset.x != layout.contentOffset.x || contentOffset.y != layout.contentOffset.y) {

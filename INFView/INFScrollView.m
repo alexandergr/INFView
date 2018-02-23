@@ -24,10 +24,6 @@
     [self reloadData];
 }
 
-- (CGFloat)spaceForSubViewAtIndex:(NSInteger)index {
-    return self.frame.size.width;
-}
-
 - (void)reloadData {
     for (UIView* subView in self.arrangedViews) {
         [subView removeFromSuperview];

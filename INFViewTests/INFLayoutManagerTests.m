@@ -138,21 +138,21 @@
     [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(0, 0)];
     [self waitForExpectations:@[shiftFromZero] timeout:1.0];
     
-    XCTestExpectation* backToInitialPosition = [[XCTestExpectation alloc] initWithDescription:@"back to initial position"];
+    XCTestExpectation* reverseBackToEndPosition = [[XCTestExpectation alloc] initWithDescription:@"reverse scroll - back to the end"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
-        if (contentOffset.x == 100) {
-            [backToInitialPosition fulfill];
+        if (contentOffset.x == 325) {
+            [reverseBackToEndPosition fulfill];
         }
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(400, 0)];
-    [self waitForExpectations:@[backToInitialPosition] timeout:1.0];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(25, 0)];
+    [self waitForExpectations:@[reverseBackToEndPosition] timeout:1.0];
     
     XCTestExpectation* scrollAtBeginOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at begin - no offset changes"];
     scrollAtBeginOffset.inverted = YES;
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtBeginOffset fulfill];
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(170, 0)];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(26, 0)];
     [self waitForExpectations:@[scrollAtBeginOffset] timeout:1.0];
     
     XCTestExpectation* scrollAtMiddleOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at middle - no offset changes"];
@@ -160,16 +160,16 @@
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
         [scrollAtMiddleOffset fulfill];
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(300, 0)];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(374, 0)];
     [self waitForExpectations:@[scrollAtMiddleOffset] timeout:1.0];
     
     XCTestExpectation* scrollAtEndOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at end - back to initial position"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
-        if (contentOffset.x == 55) {
+        if (contentOffset.x == 75) {
             [scrollAtEndOffset fulfill];
         }
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(355, 0)];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(375, 0)];
     [self waitForExpectations:@[scrollAtEndOffset] timeout:0];
 }
 

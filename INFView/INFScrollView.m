@@ -9,9 +9,8 @@
 #import "INFScrollView.h"
 #import "INFLayoutManager.h"
 
-@interface INFScrollView () <INFLayoutTarget>
+@interface INFScrollView () <INFLayoutTarget, INFLayoutDataSource>
 
-@property (nonatomic) NSInteger numberOfArrangedSubViews;
 @property (strong, nonatomic) NSMutableArray* arrangedViews;
 
 @property (strong, nonatomic) INFLayoutManager* layoutManager;
@@ -34,11 +33,10 @@
         [subView removeFromSuperview];
     }
 
-    self.numberOfArrangedSubViews = [self.dataSource numberOfSubViewsInINFView:self];
+    NSInteger numberOfArrangedSubViews = [self.dataSource numberOfArrangedViewsInINFScrollView:self];
     self.arrangedViews = [NSMutableArray new];
-
-    for (NSInteger i = 0; i < self.numberOfArrangedSubViews; i++) {
-        UIView* subView = [self.dataSource infView:self subViewAtIndex:i];
+    for (NSInteger i = 0; i < numberOfArrangedSubViews; i++) {
+        UIView* subView = [self.dataSource infScrollView:self arrangedViewForIndex:i];
         [self.arrangedViews addObject:subView];
         [self addSubview:subView];
     }
@@ -46,6 +44,7 @@
     self.layoutManager = [INFLayoutManager new];
     self.layoutManager.orientation = self.orientation;
     self.layoutManager.scrollViewSize = self.bounds.size;
+    self.layoutManager.layoutDataSource = self;
     self.layoutManager.layoutTarget = self;
     [self.layoutManager arrangeViews];
 }
@@ -78,6 +77,19 @@
 - (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
     UIView* subView = self.arrangedViews[attributes.index];
     subView.center = attributes.center;
+}
+
+#pragma mark - INFViewLayoutDataSource
+
+- (NSInteger)numberOfArrangedSubViews {
+    return self.arrangedViews.count;
+}
+
+- (CGSize) sizeForViewAtIndex:(NSInteger)index {
+    if ([self.dataSource respondsToSelector:@selector(infScrollView:sizeForViewAtIndex:)]) {
+        return [self.dataSource infScrollView:self sizeForViewAtIndex:index];
+    }
+    return self.bounds.size;
 }
 
 @end

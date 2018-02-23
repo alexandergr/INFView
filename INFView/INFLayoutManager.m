@@ -38,12 +38,27 @@
     [self updateArrangedViewsForNewContentOffset:CGPointMake(0.0, 0.0)];
 }
 
-- (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset {
+- (NSMutableArray<NSValue *> *)getArrangedViewSizes {
+    NSInteger numberOfViews = [self.layoutDataSource numberOfArrangedViews];
+    NSMutableArray<NSValue*>* viewSizes = [NSMutableArray new];
+    for (NSInteger index = 0; index < numberOfViews; index++) {
+        CGSize size = [self.layoutDataSource sizeForViewAtIndex:index];
+        [viewSizes addObject:[NSValue valueWithCGSize:size]];
+    }
+    return viewSizes;
+}
+
+- (INFViewLayout *)calculateLayoutForContentOffset:(const CGPoint *)contentOffset {
     self.layoutStrategy.scrollViewSize = self.scrollViewSize;
-    self.layoutStrategy.numberOfArrangedViews = [self.layoutTarget numberOfArrangedViews];
-    self.layoutStrategy.contentOffset = contentOffset;
+    self.layoutStrategy.sizesOfArrangedViews = [self getArrangedViewSizes];
+    self.layoutStrategy.contentOffset = *contentOffset;
 
     INFViewLayout* layout = [self.layoutStrategy layoutArrangedViews];
+    return layout;
+}
+
+- (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset {
+    INFViewLayout * layout = [self calculateLayoutForContentOffset:&contentOffset];
 
     [self.layoutTarget updateContentSize:layout.contentSize];
     if (contentOffset.x != layout.contentOffset.x || contentOffset.y != layout.contentOffset.y) {

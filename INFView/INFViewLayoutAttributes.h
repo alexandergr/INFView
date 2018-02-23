@@ -13,6 +13,5 @@
 
 @property (nonatomic) NSInteger index;
 @property (nonatomic) CGPoint center;
-@property (nonatomic) CGSize containerSize;
 
 @end

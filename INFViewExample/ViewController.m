@@ -25,19 +25,29 @@
     [super viewDidLoad];
 
     self.horizontalyArrangedViews = @[
-        [self createViewWithColor:UIColor.redColor],
-        [self createViewWithColor:UIColor.greenColor],
+        [self createViewWithColor:UIColor.whiteColor],
+        [self createViewWithColor:UIColor.cyanColor],
         [self createViewWithColor:UIColor.blueColor],
+        [self createViewWithColor:UIColor.greenColor],
         [self createViewWithColor:UIColor.yellowColor],
-        [self createViewWithColor:UIColor.orangeColor]
+        [self createViewWithColor:UIColor.orangeColor],
+        [self createViewWithColor:UIColor.magentaColor],
+        [self createViewWithColor:UIColor.redColor],
+        [self createViewWithColor:UIColor.purpleColor],
+        [self createViewWithColor:UIColor.blackColor],
         ];
 
     self.verticallyArrangedViews = @[
-                                      [self createViewWithColor:UIColor.magentaColor],
-                                      [self createViewWithColor:UIColor.cyanColor],
-                                      [self createViewWithColor:UIColor.purpleColor],
-                                      [self createViewWithColor:UIColor.blackColor],
-                                      [self createViewWithColor:UIColor.whiteColor]
+                                     [self createViewWithColor:UIColor.redColor],
+                                     [self createViewWithColor:UIColor.greenColor],
+                                     [self createViewWithColor:UIColor.blueColor],
+                                     [self createViewWithColor:UIColor.yellowColor],
+                                     [self createViewWithColor:UIColor.orangeColor],
+                                     [self createViewWithColor:UIColor.magentaColor],
+                                     [self createViewWithColor:UIColor.cyanColor],
+                                     [self createViewWithColor:UIColor.purpleColor],
+                                     [self createViewWithColor:UIColor.blackColor],
+                                     [self createViewWithColor:UIColor.whiteColor]
                                       ];
 
     self.horizontalInfScrollView.dataSource = self;
@@ -47,7 +57,7 @@
 
 }
 - (UIView*)createViewWithColor:(UIColor*)color {
-    CGRect frame = CGRectMake(0, 0, 100, 100);
+    CGRect frame = CGRectMake(0, 0, 150, 150);
     UIView* view = [[UIView alloc] initWithFrame:frame];
     view.backgroundColor = color;
     return view;
@@ -55,7 +65,7 @@
 
 #pragma mark - INFViewDataSource
 
-- (NSInteger)numberOfSubViewsInINFView:(INFScrollView *)infView {
+- (NSInteger)numberOfArrangedViewsInINFScrollView:(INFScrollView *)infView {
     if (infView == self.horizontalInfScrollView) {
         return self.horizontalyArrangedViews.count;
     }
@@ -65,7 +75,7 @@
     return 0;
 }
 
-- (UIView*)infView:(INFScrollView *)infView subViewAtIndex:(NSInteger)index {
+- (UIView*)infScrollView:(INFScrollView *)infView arrangedViewForIndex:(NSInteger)index {
     if (infView == self.horizontalInfScrollView) {
         return self.horizontalyArrangedViews[index];
     }
@@ -73,6 +83,16 @@
         return self.verticallyArrangedViews[index];
     }
     return nil;
+}
+
+- (CGSize) infScrollView:(INFScrollView *)infView sizeForViewAtIndex:(NSInteger)index {
+    if (infView == self.horizontalInfScrollView) {
+        return self.horizontalyArrangedViews[index].frame.size;
+    }
+    if (infView == self.verticalInfScrollView) {
+        return self.verticallyArrangedViews[index].frame.size;
+    }
+    return CGSizeZero;
 }
 
 @end

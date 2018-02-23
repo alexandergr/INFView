@@ -11,11 +11,13 @@
 #import "INFLayoutStrategy.h"
 
 @protocol INFLayoutTarget;
+@protocol INFLayoutDataSource;
 
 @interface INFLayoutManager: NSObject
 
 @property (nonatomic) CGSize scrollViewSize;
 @property (weak, nonatomic) id<INFLayoutTarget> layoutTarget;
+@property (weak, nonatomic) id<INFLayoutDataSource> layoutDataSource;
 @property (strong, nonatomic) id<INFLayoutStrategy> layoutStrategy;
 @property (nonatomic) INFOrientation orientation;
 
@@ -25,8 +27,12 @@
 
 @end
 
-@protocol INFLayoutTarget
+@protocol INFLayoutDataSource
 - (NSInteger)numberOfArrangedViews;
+- (CGSize)sizeForViewAtIndex:(NSInteger)index;
+@end
+
+@protocol INFLayoutTarget
 - (void)updateContentSize:(CGSize)contentSize;
 - (void)updateContentOffset:(CGPoint)contentOffset;
 - (void)setArrangedViewAttributes:(INFViewLayoutAttributes*)attributes;

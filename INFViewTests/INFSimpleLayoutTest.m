@@ -28,7 +28,7 @@
 - (void)testInitialLayout {
     INFSimpleLayoutStrategy* layoutStrategy = [INFSimpleLayoutStrategy new];
     layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
-    layoutStrategy.numberOfArrangedViews = 4;
+    layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0))];
     layoutStrategy.contentOffset = CGPointMake(0.0, 0.0);
     layoutStrategy.orientation = INFOrientationHorizontal;
     INFViewLayout* layout = [layoutStrategy layoutArrangedViews];
@@ -55,7 +55,7 @@
 - (void)testVerticalLayout {
     INFSimpleLayoutStrategy* layoutStrategy = [INFSimpleLayoutStrategy new];
     layoutStrategy.scrollViewSize = CGSizeMake(100.0, 120.0);
-    layoutStrategy.numberOfArrangedViews = 4;
+    layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0)), @(CGSizeMake(100.0, 120.0))];
     layoutStrategy.contentOffset = CGPointMake(0.0, 0.0);
     layoutStrategy.orientation = INFOrientationVertical;
     INFViewLayout* layout = [layoutStrategy layoutArrangedViews];

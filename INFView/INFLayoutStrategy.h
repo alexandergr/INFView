@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 @protocol INFLayoutStrategy
 @property (nonatomic) CGSize scrollViewSize;
 @property (nonatomic) CGPoint contentOffset;
-@property (nonatomic) NSInteger numberOfArrangedViews;
+@property (strong, nonatomic) NSArray<NSValue*>* sizesOfArrangedViews;
 @property (nonatomic) INFOrientation orientation;
 - (INFViewLayout*)layoutArrangedViews;
 @end

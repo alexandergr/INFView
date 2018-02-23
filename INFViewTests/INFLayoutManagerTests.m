@@ -9,9 +9,10 @@
 #import <XCTest/XCTest.h>
 #import "INFLayoutManager.h"
 
-@interface INFLayoutManagerTests : XCTestCase <INFLayoutTarget>
+@interface INFLayoutManagerTests : XCTestCase <INFLayoutTarget, INFLayoutDataSource>
 
 @property (nonatomic) NSInteger numberOfItems;
+@property (nonatomic) CGSize viewSize;
 
 @property (copy, nonatomic) void(^updateAttributesCallBack)(INFViewLayoutAttributes*);
 @property (copy, nonatomic) void(^updateContentSizeCallBack)(CGSize);
@@ -44,7 +45,9 @@
     INFLayoutManager* layoutManager = [INFLayoutManager new];
 
     layoutManager.layoutTarget = self;
+    layoutManager.layoutDataSource = self;
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
+    self.viewSize = layoutManager.scrollViewSize;
     self.numberOfItems = 3;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
@@ -86,7 +89,9 @@
     INFLayoutManager* layoutManager = [INFLayoutManager new];
     
     layoutManager.layoutTarget = self;
+    layoutManager.layoutDataSource = self;
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
+    self.viewSize = layoutManager.scrollViewSize;
     self.numberOfItems = 1;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
@@ -118,8 +123,10 @@
 -(void)testOffsetChangesOnScrolling{
     INFLayoutManager* layoutManager = [INFLayoutManager new];
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
+    self.viewSize = layoutManager.scrollViewSize;
     self.numberOfItems = 3;
     layoutManager.layoutTarget = self;
+    layoutManager.layoutDataSource = self;
     [layoutManager arrangeViews];
     
     XCTestExpectation* shiftFromZero = [[XCTestExpectation alloc] initWithDescription:@"shift from zero"];
@@ -169,10 +176,6 @@
 
 #pragma mark - INFLayoutTarget
 
-- (NSInteger)numberOfArrangedViews {
-    return self.numberOfItems;
-}
-
 - (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
     self.updateAttributesCallBack(attributes);
 }
@@ -183,6 +186,16 @@
 
 - (void)updateContentOffset:(CGPoint)contentOffset {
     self.updateContentOffsetCallBack(contentOffset);
+}
+
+#pragma mark - INFLayoutDataSource
+
+- (NSInteger) numberOfArrangedViews {
+    return self.numberOfItems;
+}
+
+- (CGSize) sizeForViewAtIndex:(NSInteger)index {
+    return self.viewSize;
 }
 
 @end

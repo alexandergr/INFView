@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "INFViewLayoutAttributes.h"
+#import "INFOrientation.h"
 
 @interface INFViewLayout : NSObject
 
@@ -15,4 +16,8 @@
 @property (nonatomic) CGSize contentSize;
 @property (strong, nonatomic) NSArray<INFViewLayoutAttributes*>* viewsAttributes;
 
+- (CGFloat)getContentOffsetPositionForOrientation: (INFOrientation)orientation;
+- (void)setContentOffsetPosition:(CGFloat)position forOrientation:(INFOrientation)orientation;
+
+- (void)setContentLength:(CGFloat)contentLength forOrientation:(INFOrientation)orientation;
 @end

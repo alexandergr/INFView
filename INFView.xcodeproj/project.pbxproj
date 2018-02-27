@@ -22,8 +22,6 @@
 		11B23B312022EF3B002CFE6E /* INFViewExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B23B302022EF3B002CFE6E /* INFViewExampleUITests.m */; };
 		11B23B3D2022EF6E002CFE6E /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
 		11B23B412022F2A3002CFE6E /* INFView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		11C173A520408C7C006A29C4 /* INFLayoutRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = 11C173A320408C7C006A29C4 /* INFLayoutRuler.h */; };
-		11C173A620408C7C006A29C4 /* INFLayoutRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C173A420408C7C006A29C4 /* INFLayoutRuler.m */; };
 		11FBC37E2022EB5100B1012A /* INFView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FBC3742022EB5100B1012A /* INFView.framework */; };
 		11FBC3832022EB5100B1012A /* INFLayoutManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3822022EB5100B1012A /* INFLayoutManagerTests.m */; };
 		11FBC3852022EB5100B1012A /* INFView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FBC3772022EB5100B1012A /* INFView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +32,7 @@
 		845D861D20234F3A002906ED /* INFViewLayoutAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861B20234F3A002906ED /* INFViewLayoutAttributes.h */; };
 		845D861E20234F3A002906ED /* INFViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D861C20234F3A002906ED /* INFViewLayoutAttributes.m */; };
 		845D861F20235215002906ED /* INFOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861A20234D5A002906ED /* INFOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84ABC2612045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,8 +103,6 @@
 		11B23B2C2022EF3B002CFE6E /* INFViewExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INFViewExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B23B302022EF3B002CFE6E /* INFViewExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewExampleUITests.m; sourceTree = "<group>"; };
 		11B23B322022EF3B002CFE6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11C173A320408C7C006A29C4 /* INFLayoutRuler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFLayoutRuler.h; sourceTree = "<group>"; };
-		11C173A420408C7C006A29C4 /* INFLayoutRuler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFLayoutRuler.m; sourceTree = "<group>"; };
 		11FBC3742022EB5100B1012A /* INFView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INFView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FBC3772022EB5100B1012A /* INFView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFView.h; sourceTree = "<group>"; };
 		11FBC3782022EB5100B1012A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +116,7 @@
 		845D861A20234D5A002906ED /* INFOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFOrientation.h; sourceTree = "<group>"; };
 		845D861B20234F3A002906ED /* INFViewLayoutAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFViewLayoutAttributes.h; sourceTree = "<group>"; };
 		845D861C20234F3A002906ED /* INFViewLayoutAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewLayoutAttributes.m; sourceTree = "<group>"; };
+		84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestContentOffsetChanges.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,8 +234,6 @@
 				845D861620234C6C002906ED /* INFLayoutManager.h */,
 				845D861720234C6C002906ED /* INFLayoutManager.m */,
 				845D861A20234D5A002906ED /* INFOrientation.h */,
-				11C173A320408C7C006A29C4 /* INFLayoutRuler.h */,
-				11C173A420408C7C006A29C4 /* INFLayoutRuler.m */,
 				119C4E3F202E36FD0026A64F /* INFLayoutStrategy.h */,
 				119C4E37202E33A80026A64F /* INFSimpleLayoutStrategy.h */,
 				119C4E38202E33A80026A64F /* INFSimpleLayoutStrategy.m */,
@@ -256,6 +252,7 @@
 			children = (
 				11FBC3822022EB5100B1012A /* INFLayoutManagerTests.m */,
 				119C4E35202E32070026A64F /* INFSimpleLayoutTest.m */,
+				84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */,
 				11FBC3842022EB5100B1012A /* Info.plist */,
 			);
 			path = INFViewTests;
@@ -269,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				845D861F20235215002906ED /* INFOrientation.h in Headers */,
-				11C173A520408C7C006A29C4 /* INFLayoutRuler.h in Headers */,
 				119C4E3D202E33C10026A64F /* INFViewLayout.h in Headers */,
 				11FBC3912022ED6500B1012A /* INFScrollView.h in Headers */,
 				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
@@ -500,7 +496,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11C173A620408C7C006A29C4 /* INFLayoutRuler.m in Sources */,
 				119C4E3A202E33A80026A64F /* INFSimpleLayoutStrategy.m in Sources */,
 				845D861920234C6C002906ED /* INFLayoutManager.m in Sources */,
 				845D861E20234F3A002906ED /* INFViewLayoutAttributes.m in Sources */,
@@ -515,6 +510,7 @@
 			files = (
 				11FBC3832022EB5100B1012A /* INFLayoutManagerTests.m in Sources */,
 				119C4E36202E32070026A64F /* INFSimpleLayoutTest.m in Sources */,
+				84ABC2612045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

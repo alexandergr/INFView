@@ -45,13 +45,13 @@
     XCTAssertEqual(layout.viewsAttributes[0].center.y, 60.0);
 
     XCTAssertEqual(layout.viewsAttributes[1].center.x, 250.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 60.0);
+    XCTAssertEqual(layout.viewsAttributes[1].center.y, 60.0);
 
     XCTAssertEqual(layout.viewsAttributes[2].center.x, 350.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 60.0);
+    XCTAssertEqual(layout.viewsAttributes[1].center.y, 60.0);
 
     XCTAssertEqual(layout.viewsAttributes[3].center.x, 50.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 60.0);
+    XCTAssertEqual(layout.viewsAttributes[3].center.y, 60.0);
 }
 
 - (void)testVerticalLayout {
@@ -64,6 +64,7 @@
     XCTAssertEqual(layout.contentSize.height, 720.0);
     XCTAssertEqual(layout.viewsAttributes.count, 4);
     XCTAssertEqual(layout.contentOffset.x, 0.0);
+    XCTAssertEqual(layout.contentOffset.y, 120.0);
 
     XCTAssertEqual(layout.viewsAttributes[0].center.x, 50.0);
     XCTAssertEqual(layout.viewsAttributes[0].center.y, 180.0);

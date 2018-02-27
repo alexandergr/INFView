@@ -7,52 +7,25 @@
 //
 
 #import "INFSimpleLayoutStrategy.h"
-#import "INFLayoutRuler.h"
 
 @interface INFSimpleLayoutStrategy ()
 
-@property (strong, nonatomic) INFLayoutRuler* ruler;
 @property (strong, nonatomic) NSMutableArray<INFViewLayoutAttributes*>* attributes;
 
 @end
 
 @implementation INFSimpleLayoutStrategy
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.ruler = [INFLayoutRuler new];
-    }
-    return self;
-}
-
-- (void)setupAttributesAtInitialPositions {
-    self.attributes = [NSMutableArray new];
-    CGFloat contentSize = 0.0;
-
-    for (NSInteger i = 0; i < [self.ruler countOfArrangedViews]; i++) {
-        CGFloat arrangedViewLength = [self.ruler lengthOfArrangedView:i];
-
-        INFViewLayoutAttributes* viewAttributes = [INFViewLayoutAttributes new];
-        viewAttributes.index = i;
-
-        [self.ruler viewAttributes:viewAttributes setPosition:(contentSize + arrangedViewLength / 2)];
-
-        [self.attributes addObject:viewAttributes];
-        contentSize += arrangedViewLength;
-    }
-}
-
-- (double)minimalSizeOfSideContent {
-    return [self.ruler getLengthOfScrollView] / 2.0;
-}
-
 - (NSInteger)countOfLeadingViews {
     NSInteger count = 0;
-    NSInteger totalCount = [self.ruler countOfArrangedViews];
-    CGFloat requiredSize = [self.ruler getLengthOfScrollView] / 2.0;
-    while (count < totalCount && [self.ruler lengthOfArrangedViewsInRange:NSMakeRange(0, count)] < requiredSize) {
+    NSInteger totalCount = [self countOfArrangedViews];
+    CGFloat requiredSize;
+    if (self.orientation == INFOrientationHorizontal) {
+        requiredSize = self.scrollViewSize.width / 2.0;
+    } else {
+        requiredSize = self.scrollViewSize.height / 2.0;
+    }
+    while (count < totalCount && [self lengthOfArrangedViewsInRange:NSMakeRange(0, count)] < requiredSize) {
         count += 1;
     }
     return count;
@@ -60,135 +33,155 @@
 
 - (NSInteger)countOfTrailingViews {
     NSInteger count = 0;
-    NSInteger totalCount = [self.ruler countOfArrangedViews];
-    CGFloat requiredSize = [self minimalSizeOfSideContent];
-    while (count < totalCount && [self.ruler lengthOfArrangedViewsInRange:NSMakeRange(totalCount - count, count)] < requiredSize) {
+    NSInteger totalCount = [self countOfArrangedViews];
+    CGFloat requiredSize;
+    if (self.orientation == INFOrientationHorizontal) {
+        requiredSize = self.scrollViewSize.width / 2.0;
+    } else {
+        requiredSize = self.scrollViewSize.height / 2.0;
+    }
+    while (count < totalCount && [self lengthOfArrangedViewsInRange:NSMakeRange(totalCount - count, count)] < requiredSize) {
         count += 1;
     }
     return count;
-}
-
-- (NSRange) rangeOfLeadingViews {
-    NSInteger count = [self countOfLeadingViews];
-    NSRange range = NSMakeRange(0, count);
-    return range;
-}
-
-- (NSRange) rangeOfTrailingViews {
-    NSInteger count = [self countOfTrailingViews];
-    NSInteger totalCount = [self.ruler countOfArrangedViews];
-    NSRange range = NSMakeRange(totalCount - count, count);
-    return range;
-}
-
-- (CGFloat)lenghtOfLeadingViews {
-    NSRange range = [self rangeOfLeadingViews];
-    return [self.ruler lengthOfArrangedViewsInRange:range];
-}
-
-- (CGFloat)lenghtOfTrailingViews {
-    NSRange range = [self rangeOfTrailingViews];
-    return [self.ruler lengthOfArrangedViewsInRange:range];
-}
-
-- (BOOL)canHaveScrolling {
-    CGFloat totalSize = [self.ruler lengthOfAllArrangedViews];
-    CGFloat sizeOfLeadingViews = [self lenghtOfLeadingViews];
-    CGFloat sizeOfTrailingViews = [self lenghtOfTrailingViews];
-
-    return (sizeOfLeadingViews >= [self minimalSizeOfSideContent])
-    && (sizeOfTrailingViews >= [self minimalSizeOfSideContent]) && ((totalSize - sizeOfLeadingViews - sizeOfTrailingViews) >= [self.ruler getLengthOfScrollView]);
 }
 
 - (INFViewLayout*)layoutArrangedViewsForContentOffset:(CGPoint)contentOffset {
     INFViewLayout* layout = [INFViewLayout new];
     layout.contentOffset = contentOffset;
 
-    [self setupAttributesAtInitialPositions];
+    self.attributes = [NSMutableArray new];
+    CGFloat contentLength = 0.0;
+    
+    for (NSInteger i = 0; i < [self countOfArrangedViews]; i++) {
+        CGFloat arrangedViewLength = [self lengthOfArrangedView:i];
+        
+        INFViewLayoutAttributes* viewAttributes = [INFViewLayoutAttributes new];
+        viewAttributes.index = i;
+        
+        [viewAttributes setPosition:(contentLength + arrangedViewLength / 2) forOrientation:self.orientation];
+        if (self.orientation == INFOrientationHorizontal) {
+            [viewAttributes setPosition:(self.scrollViewSize.height / 2) forOrientation:INFOrientationVertical];
+        } else {
+            [viewAttributes setPosition:(self.scrollViewSize.width / 2) forOrientation:INFOrientationHorizontal];
+        }
+        
+        [self.attributes addObject:viewAttributes];
+        contentLength += arrangedViewLength;
+    }
 
     CGFloat leadingSpacing = 0;
     CGFloat tralingSpacing = 0;
 
-    if ([self canHaveScrolling]) {
-        leadingSpacing = [self lenghtOfTrailingViews];
-        tralingSpacing = [self lenghtOfLeadingViews];
+    CGFloat totalSize = [self lengthOfAllArrangedViews];
+    
+    NSRange leadingViewsRange = NSMakeRange(0, [self countOfLeadingViews]);
+    CGFloat lengthOfLeadingViews = [self lengthOfArrangedViewsInRange:leadingViewsRange];
+    
+    NSRange trailingViewsRange = NSMakeRange([self countOfArrangedViews] - [self countOfTrailingViews], [self countOfTrailingViews]);
+    CGFloat lengthOfTrailingViews = [self lengthOfArrangedViewsInRange:trailingViewsRange];
+    
+    CGFloat lengthOfScrollView;
+    if (self.orientation == INFOrientationHorizontal) {
+        lengthOfScrollView = self.scrollViewSize.width;
+    } else {
+        lengthOfScrollView = self.scrollViewSize.height;
+    }
+    
+    BOOL canHaveScrolling = (lengthOfLeadingViews >= lengthOfScrollView / 2.0)
+    && (lengthOfTrailingViews >= lengthOfScrollView / 2.0) && ((totalSize - lengthOfTrailingViews) >= lengthOfScrollView) && ((totalSize - lengthOfLeadingViews) >= lengthOfScrollView);
+    
+    if (canHaveScrolling) {
+        leadingSpacing = lengthOfTrailingViews;
+        tralingSpacing = lengthOfLeadingViews;
 
         for (INFViewLayoutAttributes* viewAttributes in self.attributes) {
-            CGFloat positionWithShift = [self.ruler getPosition:viewAttributes] + leadingSpacing;
-            [self.ruler viewAttributes:viewAttributes setPosition:positionWithShift];
+            CGFloat positionWithShift = [viewAttributes getPositionForOrientation:self.orientation] + leadingSpacing;
+            [viewAttributes setPosition:positionWithShift forOrientation:self.orientation];
         }
 
-        CGFloat sizeOfScrollView = [self.ruler getLengthOfScrollView];
+        if ([layout getContentOffsetPositionForOrientation:self.orientation] == 0) {
+            [layout setContentOffsetPosition:leadingSpacing forOrientation:self.orientation];
 
-        CGFloat contentOffsetPosition = [self.ruler getContentOffsetPositionFromLayout:layout];
-        if (contentOffsetPosition == 0) {
-            contentOffsetPosition = leadingSpacing;
-            [self.ruler layout:layout setContentOffsetToPosition:contentOffsetPosition];
+        } else if ([layout getContentOffsetPositionForOrientation:self.orientation] <= leadingSpacing / 4.0) {
+            CGFloat newContentOffsetPosition = leadingSpacing + ([self lengthOfAllArrangedViews] - (leadingSpacing - [layout getContentOffsetPositionForOrientation:self.orientation]));
+            [layout setContentOffsetPosition:newContentOffsetPosition forOrientation:self.orientation];
 
-        } else if (contentOffsetPosition <= leadingSpacing / 4.0) {
-            contentOffsetPosition = leadingSpacing + ([self.ruler lengthOfAllArrangedViews] - (leadingSpacing - contentOffsetPosition));
-            [self.ruler layout:layout setContentOffsetToPosition:contentOffsetPosition];
-
-        } else if (contentOffsetPosition + sizeOfScrollView + (tralingSpacing/4.0) >= leadingSpacing + [self.ruler lengthOfAllArrangedViews] + tralingSpacing) {
-            contentOffsetPosition = leadingSpacing + (contentOffsetPosition - ([self.ruler lengthOfAllArrangedViews] + leadingSpacing));
-            [self.ruler layout:layout setContentOffsetToPosition:contentOffsetPosition];
-
+        } else if ([layout getContentOffsetPositionForOrientation:self.orientation] + lengthOfScrollView >= leadingSpacing + [self lengthOfAllArrangedViews] + (tralingSpacing * 0.75)) {
+            CGFloat newContentOffsetPosition = leadingSpacing + ([layout getContentOffsetPositionForOrientation:self.orientation] - ([self lengthOfAllArrangedViews] + leadingSpacing));
+            [layout setContentOffsetPosition:newContentOffsetPosition forOrientation:self.orientation];
         }
 
-        if (contentOffsetPosition + sizeOfScrollView >= leadingSpacing + [self.ruler lengthOfAllArrangedViews]) {
-            NSRange range = [self rangeOfLeadingViews];
-            [self moveViewsInRange:range toPosition:(leadingSpacing + [self.ruler lengthOfAllArrangedViews])];
+        if ([layout getContentOffsetPositionForOrientation:self.orientation] + lengthOfScrollView >= leadingSpacing + [self lengthOfAllArrangedViews]) {
+            NSRange range = NSMakeRange(0, [self countOfLeadingViews]);
+            CGFloat position = leadingSpacing + [self lengthOfAllArrangedViews];
+            CGFloat groupSize = 0;
+            for (NSInteger j = 0; j < range.length; j++) {
+                NSInteger i = range.location + j;
+                
+                CGFloat viewLength = [self lengthOfArrangedView:i];
+                CGFloat newPosition = position + groupSize + viewLength / 2.0;
+                INFViewLayoutAttributes* viewAttributes = self.attributes[i];
+                [viewAttributes setPosition:newPosition forOrientation:self.orientation];
+                groupSize += viewLength;
+            }
 
-        } else if (contentOffsetPosition <= leadingSpacing) {
-            NSRange range = [self rangeOfTrailingViews];
-            [self moveViewsInRange:range toPosition:0.0];
+        } else if ([layout getContentOffsetPositionForOrientation:self.orientation] <= leadingSpacing) {
+            NSRange range = NSMakeRange([self countOfArrangedViews] - [self countOfTrailingViews], [self countOfTrailingViews]);
+            CGFloat position = 0.0;
+            CGFloat groupSize = 0;
+            for (NSInteger j = 0; j < range.length; j++) {
+                NSInteger i = range.location + j;
+                
+                CGFloat viewLength = [self lengthOfArrangedView:i];
+                CGFloat newPosition = position + groupSize + viewLength / 2.0;
+                INFViewLayoutAttributes* viewAttributes = self.attributes[i];
+                [viewAttributes setPosition:newPosition forOrientation:self.orientation];
+                groupSize += viewLength;
+            }
         }
     }
 
     layout.viewsAttributes = self.attributes;
-    CGFloat contentSize = leadingSpacing + [self.ruler lengthOfAllArrangedViews] + tralingSpacing;
-    [self.ruler layout:layout setContentLength:contentSize];
+    contentLength = leadingSpacing + [self lengthOfAllArrangedViews] + tralingSpacing;
+    
+    [layout setContentLength:contentLength forOrientation:self.orientation];
+    if (self.orientation == INFOrientationVertical) {
+        [layout setContentLength:self.scrollViewSize.width forOrientation:INFOrientationHorizontal];
+    } else {
+        [layout setContentLength:self.scrollViewSize.height forOrientation:INFOrientationVertical];
+    }
 
     return layout;
 }
 
-- (void)moveViewsInRange:(NSRange)range toPosition:(CGFloat)position {
-    CGFloat groupSize = 0;
-    for (NSInteger j = 0; j < range.length; j++) {
-        NSInteger i = range.location + j;
+#pragma mark - View sizes calculations
+- (NSUInteger)countOfArrangedViews {
+    return self.sizesOfArrangedViews.count;
+}
 
-        CGFloat viewLength = [self.ruler lengthOfArrangedView:i];
-        CGFloat newPosition = position + groupSize + viewLength / 2.0;
-        INFViewLayoutAttributes* viewAttributes = self.attributes[i];
-        [self.ruler viewAttributes:viewAttributes setPosition:newPosition];
-        groupSize += viewLength;
+- (CGFloat)lengthOfArrangedView: (NSInteger)index {
+    NSValue* arrangedViewSizeValue = self.sizesOfArrangedViews[index];
+    CGSize arrangedViewSize = arrangedViewSizeValue.CGSizeValue;
+    
+    if (self.orientation == INFOrientationHorizontal) {
+        return arrangedViewSize.width;
+    } else {
+        return arrangedViewSize.height;
     }
 }
 
-
-#pragma mark - INFRuler getters/setters
-
-- (void)setOrientation:(INFOrientation)orientation {
-    self.ruler.orientation = orientation;
+- (CGFloat)lengthOfArrangedViewsInRange:(NSRange)range {
+    CGFloat length = 0.0;
+    for (NSInteger i = range.location; i < range.location + range.length; i++) {
+        length += [self lengthOfArrangedView:i];
+    }
+    return length;
 }
 
-- (INFOrientation)orientation {
-    return self.ruler.orientation;
+- (CGFloat)lengthOfAllArrangedViews {
+    NSRange range = NSMakeRange(0, [self countOfArrangedViews]);
+    return [self lengthOfArrangedViewsInRange:range];
 }
 
-- (void) setScrollViewSize:(CGSize)scrollViewSize {
-    self.ruler.scrollViewSize = scrollViewSize;
-}
-
-- (CGSize) scrollViewSize {
-    return self.ruler.scrollViewSize;
-}
-
-- (void)setSizesOfArrangedViews:(NSArray<NSValue *> *)sizesOfArrangedViews {
-    self.ruler.sizesOfArrangedViews = sizesOfArrangedViews;
-}
-
-- (NSArray<NSValue *> *)sizesOfArrangedViews {
-    return self.ruler.sizesOfArrangedViews;
-}
 @end

@@ -14,7 +14,7 @@
 @property (nonatomic) NSInteger numberOfItems;
 @property (nonatomic) CGSize viewSize;
 
-@property (copy, nonatomic) void(^updateAttributesCallBack)(INFViewLayoutAttributes*);
+@property (copy, nonatomic) void(^updateArrangedViewCallBack)(INFLayoutViewInfo*);
 @property (copy, nonatomic) void(^updateContentSizeCallBack)(CGSize);
 @property (copy, nonatomic) void(^updateContentOffsetCallBack)(CGPoint);
 
@@ -25,7 +25,7 @@
 - (void)setUp {
     [super setUp];
     
-    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
+    self.updateArrangedViewCallBack = ^(INFLayoutViewInfo* viewInfo) {
     };
     self.updateContentSizeCallBack = ^(CGSize contentSize) {
     };
@@ -36,7 +36,7 @@
 - (void)tearDown {
     [super tearDown];
     
-    self.updateAttributesCallBack = nil;
+    self.updateArrangedViewCallBack = nil;
     self.updateContentSizeCallBack = nil;
     self.updateContentOffsetCallBack = nil;
 }
@@ -56,17 +56,17 @@
     XCTestExpectation* extraLayoutCallExpextation = [[XCTestExpectation alloc] initWithDescription:@"Extra layout call"];
     extraLayoutCallExpextation.inverted = YES;
    
-    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
-        if (attributes.index == 0) {
-            if (attributes.center.x == 150 && attributes.center.y == 50) {
+    self.updateArrangedViewCallBack = ^(INFLayoutViewInfo* viewInfo) {
+        if (viewInfo.index == 0) {
+            if (viewInfo.center.x == 150 && viewInfo.center.y == 50) {
                 [view1LayoutExpectation fulfill];
             }
-        } else if (attributes.index == 1) {
-            if (attributes.center.x == 250 && attributes.center.y == 50) {
+        } else if (viewInfo.index == 1) {
+            if (viewInfo.center.x == 250 && viewInfo.center.y == 50) {
                 [view2LayoutExpectation fulfill];
             }
-        } else if (attributes.index == 2) {
-            if (attributes.center.x == 50 && attributes.center.y == 50) {
+        } else if (viewInfo.index == 2) {
+            if (viewInfo.center.x == 50 && viewInfo.center.y == 50) {
                 [view3LayoutExpextation fulfill];
             }
         } else {
@@ -99,9 +99,9 @@
     extraLayoutCallExpextation.inverted = YES;
     XCTestExpectation* contentSizeExpextation = [[XCTestExpectation alloc] initWithDescription:@"Content size"];
     
-    self.updateAttributesCallBack = ^(INFViewLayoutAttributes* attributes) {
-        if (attributes.index == 0) {
-            if (attributes.center.x == 50 && attributes.center.y == 50) {
+    self.updateArrangedViewCallBack = ^(INFLayoutViewInfo* viewInfo) {
+        if (viewInfo.index == 0) {
+            if (viewInfo.center.x == 50 && viewInfo.center.y == 50) {
                 [view1LayoutExpectation fulfill];
             }
         } else {
@@ -176,8 +176,8 @@
 
 #pragma mark - INFLayoutTarget
 
-- (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
-    self.updateAttributesCallBack(attributes);
+- (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo *)viewInfo {
+    self.updateArrangedViewCallBack(viewInfo);
 }
 
 - (void)updateContentSize:(CGSize)contentSize {

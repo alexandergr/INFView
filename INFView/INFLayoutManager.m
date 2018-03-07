@@ -12,7 +12,7 @@
 @interface INFLayoutManager()
 
 @property (nonatomic) NSInteger numberOfViews;
-@property (strong, nonatomic) NSArray<INFViewLayoutAttributes*>* layoutAttributes;
+@property (strong, nonatomic) NSArray<INFLayoutViewInfo*>* viewsLayoutInfo;
 @property (nonatomic) NSInteger contentSpan;
 @property (nonatomic) BOOL needsReArrange;
 
@@ -63,8 +63,8 @@
     if (contentOffset.x != layout.contentOffset.x || contentOffset.y != layout.contentOffset.y) {
         [self.layoutTarget updateContentOffset:layout.contentOffset];
     }
-    for (INFViewLayoutAttributes* attributes in layout.viewsAttributes) {
-        [self.layoutTarget setArrangedViewAttributes:attributes];
+    for (INFLayoutViewInfo* viewInfo in layout.viewsLayoutInfo) {
+        [self.layoutTarget updateArrangedViewWithLayoutInfo:viewInfo];
     }
 }
 

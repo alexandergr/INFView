@@ -70,9 +70,9 @@
     self.contentOffset = contentOffset;
 }
 
-- (void)setArrangedViewAttributes:(INFViewLayoutAttributes *)attributes {
-    UIView* subView = self.arrangedViews[attributes.index];
-    subView.center = attributes.center;
+- (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo *)viewInfo{
+    UIView* subView = self.arrangedViews[viewInfo.index];
+    subView.center = viewInfo.center;
 }
 
 #pragma mark - INFViewLayoutDataSource

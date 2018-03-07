@@ -35,5 +35,5 @@
 @protocol INFLayoutTarget
 - (void)updateContentSize:(CGSize)contentSize;
 - (void)updateContentOffset:(CGPoint)contentOffset;
-- (void)setArrangedViewAttributes:(INFViewLayoutAttributes*)attributes;
+- (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo*)viewInfo;
 @end

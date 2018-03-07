@@ -29,8 +29,8 @@
 		11FBC3922022ED6500B1012A /* INFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FBC3902022ED6500B1012A /* INFScrollView.m */; };
 		845D861820234C6C002906ED /* INFLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861620234C6C002906ED /* INFLayoutManager.h */; };
 		845D861920234C6C002906ED /* INFLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D861720234C6C002906ED /* INFLayoutManager.m */; };
-		845D861D20234F3A002906ED /* INFViewLayoutAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861B20234F3A002906ED /* INFViewLayoutAttributes.h */; };
-		845D861E20234F3A002906ED /* INFViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D861C20234F3A002906ED /* INFViewLayoutAttributes.m */; };
+		845D861D20234F3A002906ED /* INFLayoutViewInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861B20234F3A002906ED /* INFLayoutViewInfo.h */; };
+		845D861E20234F3A002906ED /* INFLayoutViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D861C20234F3A002906ED /* INFLayoutViewInfo.m */; };
 		845D861F20235215002906ED /* INFOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861A20234D5A002906ED /* INFOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84ABC2612045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */; };
 /* End PBXBuildFile section */
@@ -114,8 +114,8 @@
 		845D861620234C6C002906ED /* INFLayoutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFLayoutManager.h; sourceTree = "<group>"; };
 		845D861720234C6C002906ED /* INFLayoutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFLayoutManager.m; sourceTree = "<group>"; };
 		845D861A20234D5A002906ED /* INFOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFOrientation.h; sourceTree = "<group>"; };
-		845D861B20234F3A002906ED /* INFViewLayoutAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFViewLayoutAttributes.h; sourceTree = "<group>"; };
-		845D861C20234F3A002906ED /* INFViewLayoutAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewLayoutAttributes.m; sourceTree = "<group>"; };
+		845D861B20234F3A002906ED /* INFLayoutViewInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFLayoutViewInfo.h; sourceTree = "<group>"; };
+		845D861C20234F3A002906ED /* INFLayoutViewInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFLayoutViewInfo.m; sourceTree = "<group>"; };
 		84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestContentOffsetChanges.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,8 +239,8 @@
 				119C4E38202E33A80026A64F /* INFSimpleLayoutStrategy.m */,
 				119C4E3B202E33C10026A64F /* INFViewLayout.h */,
 				119C4E3C202E33C10026A64F /* INFViewLayout.m */,
-				845D861B20234F3A002906ED /* INFViewLayoutAttributes.h */,
-				845D861C20234F3A002906ED /* INFViewLayoutAttributes.m */,
+				845D861B20234F3A002906ED /* INFLayoutViewInfo.h */,
+				845D861C20234F3A002906ED /* INFLayoutViewInfo.m */,
 				11FBC3772022EB5100B1012A /* INFView.h */,
 				11FBC3782022EB5100B1012A /* Info.plist */,
 			);
@@ -271,7 +271,7 @@
 				11FBC3852022EB5100B1012A /* INFView.h in Headers */,
 				119C4E39202E33A80026A64F /* INFSimpleLayoutStrategy.h in Headers */,
 				845D861820234C6C002906ED /* INFLayoutManager.h in Headers */,
-				845D861D20234F3A002906ED /* INFViewLayoutAttributes.h in Headers */,
+				845D861D20234F3A002906ED /* INFLayoutViewInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,7 +498,7 @@
 			files = (
 				119C4E3A202E33A80026A64F /* INFSimpleLayoutStrategy.m in Sources */,
 				845D861920234C6C002906ED /* INFLayoutManager.m in Sources */,
-				845D861E20234F3A002906ED /* INFViewLayoutAttributes.m in Sources */,
+				845D861E20234F3A002906ED /* INFLayoutViewInfo.m in Sources */,
 				11FBC3922022ED6500B1012A /* INFScrollView.m in Sources */,
 				119C4E3E202E33C10026A64F /* INFViewLayout.m in Sources */,
 			);

@@ -33,42 +33,42 @@
 }
 
 - (void) checkViewsAtLeftSideState:(INFViewLayout*)layout {
-    XCTAssertEqual(layout.viewsAttributes.count, 3);
+    XCTAssertEqual(layout.viewsLayoutInfo.count, 3);
     
-    XCTAssertEqual(layout.viewsAttributes[0].center.x, 150.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.x, 150.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[1].center.x, 250.0);
-    XCTAssertEqual(layout.viewsAttributes[1].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.x, 250.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[2].center.x, 50.0);
-    XCTAssertEqual(layout.viewsAttributes[2].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.x, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.y, 50.0);
 }
 
 - (void) checkViewsAtNormalOrderState:(INFViewLayout*)layout {
-    XCTAssertEqual(layout.viewsAttributes.count, 3);
+    XCTAssertEqual(layout.viewsLayoutInfo.count, 3);
     
-    XCTAssertEqual(layout.viewsAttributes[0].center.x, 150.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.x, 150.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[1].center.x, 250.0);
-    XCTAssertEqual(layout.viewsAttributes[1].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.x, 250.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[2].center.x, 350.0);
-    XCTAssertEqual(layout.viewsAttributes[2].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.x, 350.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.y, 50.0);
 }
 
 - (void) checkViewsAtRightSideState:(INFViewLayout*)layout {
-    XCTAssertEqual(layout.viewsAttributes.count, 3);
+    XCTAssertEqual(layout.viewsLayoutInfo.count, 3);
     
-    XCTAssertEqual(layout.viewsAttributes[0].center.x, 450.0);
-    XCTAssertEqual(layout.viewsAttributes[0].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.x, 450.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[0].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[1].center.x, 250.0);
-    XCTAssertEqual(layout.viewsAttributes[1].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.x, 250.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[1].center.y, 50.0);
     
-    XCTAssertEqual(layout.viewsAttributes[2].center.x, 350.0);
-    XCTAssertEqual(layout.viewsAttributes[2].center.y, 50.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.x, 350.0);
+    XCTAssertEqual(layout.viewsLayoutInfo[2].center.y, 50.0);
 }
 
 - (void)testLayoutForInitialPosition {

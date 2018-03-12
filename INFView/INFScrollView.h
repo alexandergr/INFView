@@ -27,5 +27,6 @@
 - (NSInteger)numberOfArrangedViewsInINFScrollView:(INFScrollView*)infScrollView;
 - (UIView*)infScrollView:(INFScrollView*)infView arrangedViewForIndex:(NSInteger)index;
 @optional
+- (CGSize)infScrollView:(INFScrollView*)infView estimatedSizeForViewAtIndex:(NSInteger)index;
 - (CGSize)infScrollView:(INFScrollView*)infView sizeForViewAtIndex:(NSInteger)index;
 @end

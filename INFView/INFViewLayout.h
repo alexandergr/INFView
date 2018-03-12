@@ -18,15 +18,25 @@
 @property (nonatomic) CGSize contentSize;
 @property (strong, nonatomic) NSArray<INFLayoutViewInfo*>* viewsLayoutInfo;
 
+@property (nonatomic) NSRange leadingViewsRange;
+@property (nonatomic) NSRange trailingViewsRange;
+
+@property (nonatomic) BOOL canHaveInfiniteScrolling;
+
 - (CGFloat)getContentOffsetPosition;
 - (void)setContentOffsetPosition:(CGFloat)position;
 
 - (void)setContentLength:(CGFloat)contentLength;
 
-- (CGFloat)getLengthOfViewsInRange:(NSRange)range;
-- (CGFloat)getLengthOfAllViews;
+- (CGFloat)lengthOfViewsInRange:(NSRange)range;
+- (CGFloat)lengthOfAllViews;
+- (CGFloat)lengthOfLeadingViews;
+- (CGFloat)lengthOfTrailingViews;
 
 - (void)moveViewsInRange:(NSRange)range position:(CGFloat)position;
 - (void)shiftViewsWithOffset:(CGFloat)offset;
 
+- (void)setAccurateSize:(CGSize)size forViewAtIndex:(NSInteger)index;
+
+- (NSArray<INFLayoutViewInfo*>*)getViewsInAreaFrom:(CGFloat)startPosition to:(CGFloat)endPosition;
 @end

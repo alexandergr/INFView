@@ -8,10 +8,12 @@
 
 #import <XCTest/XCTest.h>
 #import "INFSimpleLayoutStrategy.h"
+#import "FakeViewsSizeStorage.h"
 
 @interface INFSimpleLayoutTestContentOffsetChanges : XCTestCase
 
 @property (strong, nonatomic) INFSimpleLayoutStrategy* layoutStrategy;
+@property (strong, nonatomic) FakeViewsSizeStorage* viewSizes;
 
 @end
 
@@ -22,12 +24,14 @@
     
     self.layoutStrategy = [INFSimpleLayoutStrategy new];
     self.layoutStrategy.scrollViewSize = CGSizeMake(100.0, 100.0);
-    self.layoutStrategy.sizesOfArrangedViews = @[@(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0)), @(CGSizeMake(100.0, 100.0))];
+    self.viewSizes = [[FakeViewsSizeStorage alloc] initWithCountOfViews:3 estimatedSize:CGSizeMake(100.0, 100.0) accurateSize:CGSizeMake(100.0, 100.0)];
+    self.layoutStrategy.sizesStorage = self.viewSizes;
     self.layoutStrategy.orientation = INFOrientationHorizontal;
 }
 
 - (void)tearDown {
     self.layoutStrategy = nil;
+    self.viewSizes = nil;
     
     [super tearDown];
 }
@@ -74,10 +78,10 @@
 - (void)testLayoutForInitialPosition {
     INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(0.0, 0.0)];
     
-    XCTAssertEqual(layout.contentOffset.x, 100.0);
+    XCTAssertEqual(layout.contentOffset.x, 300.0);
     XCTAssertEqual(layout.contentOffset.y, 0.0);
     
-    [self checkViewsAtLeftSideState:layout];
+    [self checkViewsAtRightSideState:layout];
 }
 
 - (void)testLayoutBeforeLeftViewState {
@@ -99,18 +103,27 @@
 }
 
 - (void)testLayoutBeforeLeftJump {
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(26.0, 0.0)];
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(1.0, 0.0)];
     
-    XCTAssertEqual(layout.contentOffset.x, 26.0);
+    XCTAssertEqual(layout.contentOffset.x, 1.0);
     XCTAssertEqual(layout.contentOffset.y, 0.0);
     
     [self checkViewsAtLeftSideState:layout];
 }
 
 - (void)testLayoutAtLeftJump {
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(25.0, 0.0)];
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(-1.0, 0.0)];
     
-    XCTAssertEqual(layout.contentOffset.x, 325.0);
+    XCTAssertEqual(layout.contentOffset.x, 299.0);
+    XCTAssertEqual(layout.contentOffset.y, 0.0);
+    
+    [self checkViewsAtNormalOrderState:layout];
+}
+
+- (void)testLayoutAtLeftJump2 {
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(0.0, 0.0)];
+    
+    XCTAssertEqual(layout.contentOffset.x, 300.0);
     XCTAssertEqual(layout.contentOffset.y, 0.0);
     
     [self checkViewsAtRightSideState:layout];
@@ -135,18 +148,27 @@
 }
 
 - (void)testLayoutBeforeRightJump {
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(374.0, 0.0)];
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(399.0, 0.0)];
     
-    XCTAssertEqual(layout.contentOffset.x, 374.0);
+    XCTAssertEqual(layout.contentOffset.x, 399.0);
     XCTAssertEqual(layout.contentOffset.y, 0.0);
     
     [self checkViewsAtRightSideState:layout];
 }
 
 - (void)testLayoutAtRightJump {
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(375.0, 0.0)];
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(401.0, 0.0)];
     
-    XCTAssertEqual(layout.contentOffset.x, 75.0);
+    XCTAssertEqual(layout.contentOffset.x, 101.0);
+    XCTAssertEqual(layout.contentOffset.y, 0.0);
+    
+    [self checkViewsAtNormalOrderState:layout];
+}
+
+- (void)testLayoutAtRightJump2 {
+    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:CGPointMake(400.0, 0.0)];
+    
+    XCTAssertEqual(layout.contentOffset.x, 100.0);
     XCTAssertEqual(layout.contentOffset.y, 0.0);
     
     [self checkViewsAtLeftSideState:layout];

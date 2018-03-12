@@ -127,7 +127,6 @@
     self.numberOfItems = 3;
     layoutManager.layoutTarget = self;
     layoutManager.layoutDataSource = self;
-    [layoutManager arrangeViews];
     
     XCTestExpectation* shiftFromZero = [[XCTestExpectation alloc] initWithDescription:@"shift from zero"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
@@ -135,16 +134,16 @@
             [shiftFromZero fulfill];
         }
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(0, 0)];
+    [layoutManager arrangeViews];
     [self waitForExpectations:@[shiftFromZero] timeout:1.0];
     
     XCTestExpectation* reverseBackToEndPosition = [[XCTestExpectation alloc] initWithDescription:@"reverse scroll - back to the end"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
-        if (contentOffset.x == 325) {
+        if (contentOffset.x == 299) {
             [reverseBackToEndPosition fulfill];
         }
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(25, 0)];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(-1, 0)];
     [self waitForExpectations:@[reverseBackToEndPosition] timeout:1.0];
     
     XCTestExpectation* scrollAtBeginOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at begin - no offset changes"];
@@ -165,11 +164,11 @@
     
     XCTestExpectation* scrollAtEndOffset = [[XCTestExpectation alloc] initWithDescription:@"scroll at end - back to initial position"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
-        if (contentOffset.x == 75) {
+        if (contentOffset.x == 101) {
             [scrollAtEndOffset fulfill];
         }
     };
-    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(375, 0)];
+    [layoutManager updateArrangedViewsForNewContentOffset:CGPointMake(401, 0)];
     [self waitForExpectations:@[scrollAtEndOffset] timeout:0];
 }
 
@@ -198,4 +197,7 @@
     return self.viewSize;
 }
 
+- (CGSize) estimatedSizeForViewAtIndex:(NSInteger)index {
+    return [self sizeForViewAtIndex:index];
+}
 @end

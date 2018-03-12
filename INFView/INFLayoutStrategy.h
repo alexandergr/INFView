@@ -15,11 +15,17 @@ typedef enum : NSUInteger {
     INFLayoutStrategyTypeSimple,
 } INFLayoutStrategyType;
 
+@protocol INFViewsSizeStorage
+- (NSInteger)countOfViews;
+- (CGSize)sizeOfViewAtIndex:(NSInteger)index;
+- (CGSize)accurateSizeOfViewAtIndex:(NSInteger)index;
+@end
+
 @protocol INFLayoutStrategy
 
 @property (nonatomic) INFOrientation orientation;
 @property (nonatomic) CGSize scrollViewSize;
-@property (strong, nonatomic) NSArray<NSValue*>* sizesOfArrangedViews;
+@property (weak, nonatomic) id<INFViewsSizeStorage> sizesStorage;
 
 - (INFViewLayout*)layoutArrangedViewsForContentOffset:(CGPoint)contentOffset;
 @end

@@ -30,6 +30,7 @@
 @protocol INFLayoutDataSource
 - (NSInteger)numberOfArrangedViews;
 - (CGSize)sizeForViewAtIndex:(NSInteger)index;
+- (CGSize)estimatedSizeForViewAtIndex:(NSInteger)index;
 @end
 
 @protocol INFLayoutTarget

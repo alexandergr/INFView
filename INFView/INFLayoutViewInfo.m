@@ -36,6 +36,14 @@
     }
 }
 
+- (void)shiftPosition:(CGFloat)shift forOrientation:(INFOrientation)orientation {
+    if (orientation == INFOrientationHorizontal) {
+        self.center = CGPointMake(self.center.x + shift, self.center.y);
+    } else {
+        self.center = CGPointMake(self.center.x, self.center.y + shift);
+    }
+}
+
 - (CGFloat)getLengthForOrientation:(INFOrientation)orientation {
     if (orientation == INFOrientationHorizontal) {
         return self.size.width;

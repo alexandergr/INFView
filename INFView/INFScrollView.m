@@ -81,11 +81,18 @@
     return self.arrangedViews.count;
 }
 
-- (CGSize) sizeForViewAtIndex:(NSInteger)index {
+- (CGSize)sizeForViewAtIndex:(NSInteger)index {
     if ([self.dataSource respondsToSelector:@selector(infScrollView:sizeForViewAtIndex:)]) {
         return [self.dataSource infScrollView:self sizeForViewAtIndex:index];
     }
     return self.bounds.size;
+}
+
+- (CGSize)estimatedSizeForViewAtIndex:(NSInteger)index {
+    if ([self.dataSource respondsToSelector:@selector(infScrollView:estimatedSizeForViewAtIndex:)]) {
+        return [self.dataSource infScrollView:self estimatedSizeForViewAtIndex:index];
+    }
+    return [self sizeForViewAtIndex:index];
 }
 
 @end

@@ -32,7 +32,12 @@
 		845D861D20234F3A002906ED /* INFLayoutViewInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861B20234F3A002906ED /* INFLayoutViewInfo.h */; };
 		845D861E20234F3A002906ED /* INFLayoutViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D861C20234F3A002906ED /* INFLayoutViewInfo.m */; };
 		845D861F20235215002906ED /* INFOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D861A20234D5A002906ED /* INFOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		848DF627205037CA00FA7F77 /* INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DF626205037CA00FA7F77 /* INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m */; };
+		848DF62A2050380800FA7F77 /* FakeViewsSizeStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DF6292050380800FA7F77 /* FakeViewsSizeStorage.m */; };
 		84ABC2612045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */; };
+		84D4F6342057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F6332057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m */; };
+		84D4F636205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F635205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m */; };
+		84D4F638205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F637205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +121,13 @@
 		845D861A20234D5A002906ED /* INFOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFOrientation.h; sourceTree = "<group>"; };
 		845D861B20234F3A002906ED /* INFLayoutViewInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFLayoutViewInfo.h; sourceTree = "<group>"; };
 		845D861C20234F3A002906ED /* INFLayoutViewInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFLayoutViewInfo.m; sourceTree = "<group>"; };
+		848DF626205037CA00FA7F77 /* INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m; sourceTree = "<group>"; };
+		848DF6282050380800FA7F77 /* FakeViewsSizeStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FakeViewsSizeStorage.h; sourceTree = "<group>"; };
+		848DF6292050380800FA7F77 /* FakeViewsSizeStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FakeViewsSizeStorage.m; sourceTree = "<group>"; };
 		84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestContentOffsetChanges.m; sourceTree = "<group>"; };
+		84D4F6332057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewLayoutViewSizeChanges.m; sourceTree = "<group>"; };
+		84D4F635205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m; sourceTree = "<group>"; };
+		84D4F637205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestMinimalScrollConditions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,12 +261,42 @@
 		11FBC3812022EB5100B1012A /* INFViewTests */ = {
 			isa = PBXGroup;
 			children = (
+				848DF62B2050381100FA7F77 /* Fakes */,
 				11FBC3822022EB5100B1012A /* INFLayoutManagerTests.m */,
-				119C4E35202E32070026A64F /* INFSimpleLayoutTest.m */,
-				84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */,
+				84D4F6312057D6C200A25BAD /* INFSimpleLayoutStrategy */,
+				84D4F6322057D74000A25BAD /* INFViewLayout */,
 				11FBC3842022EB5100B1012A /* Info.plist */,
 			);
 			path = INFViewTests;
+			sourceTree = "<group>";
+		};
+		848DF62B2050381100FA7F77 /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				848DF6282050380800FA7F77 /* FakeViewsSizeStorage.h */,
+				848DF6292050380800FA7F77 /* FakeViewsSizeStorage.m */,
+			);
+			path = Fakes;
+			sourceTree = "<group>";
+		};
+		84D4F6312057D6C200A25BAD /* INFSimpleLayoutStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				119C4E35202E32070026A64F /* INFSimpleLayoutTest.m */,
+				84ABC2602045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m */,
+				848DF626205037CA00FA7F77 /* INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m */,
+				84D4F635205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m */,
+				84D4F637205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m */,
+			);
+			path = INFSimpleLayoutStrategy;
+			sourceTree = "<group>";
+		};
+		84D4F6322057D74000A25BAD /* INFViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				84D4F6332057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m */,
+			);
+			path = INFViewLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,6 +551,11 @@
 			files = (
 				11FBC3832022EB5100B1012A /* INFLayoutManagerTests.m in Sources */,
 				119C4E36202E32070026A64F /* INFSimpleLayoutTest.m in Sources */,
+				84D4F6342057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m in Sources */,
+				848DF62A2050380800FA7F77 /* FakeViewsSizeStorage.m in Sources */,
+				84D4F638205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m in Sources */,
+				848DF627205037CA00FA7F77 /* INFSimpleLayoutTestEstimatedAndAccurateViewSizes.m in Sources */,
+				84D4F636205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m in Sources */,
 				84ABC2612045A23400670F6E /* INFSimpleLayoutTestContentOffsetChanges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

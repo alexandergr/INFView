@@ -14,7 +14,7 @@
 
 @property (nonatomic) INFOrientation orientation;
 @property (nonatomic) CGSize scrollViewSize;
-@property (strong, nonatomic) NSArray<NSValue*>* sizesOfArrangedViews;
+@property (weak, nonatomic) id<INFViewsSizeStorage> sizesStorage;
 
 - (INFViewLayout*)layoutArrangedViewsForContentOffset:(CGPoint)contentOffset;
 @end

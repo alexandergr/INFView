@@ -9,12 +9,9 @@
 #import "INFLayoutManager.h"
 #import "INFSimpleLayoutStrategy.h"
 
-@interface INFLayoutManager()
+@interface INFLayoutManager() <INFViewsSizeStorage>
 
-@property (nonatomic) NSInteger numberOfViews;
-@property (strong, nonatomic) NSArray<INFLayoutViewInfo*>* viewsLayoutInfo;
-@property (nonatomic) NSInteger contentSpan;
-@property (nonatomic) BOOL needsReArrange;
+@property (nonatomic) BOOL needToMakeLeadingShift;
 
 @end
 
@@ -23,6 +20,7 @@
 - (instancetype) initWithLayoutStrategyType:(INFLayoutStrategyType)layoutStrategyType {
     self = [super init];
     if (self != nil) {
+        self.needToMakeLeadingShift = YES;
         if (layoutStrategyType == INFLayoutStrategyTypeSimple) {
             self.layoutStrategy = [INFSimpleLayoutStrategy new];
         }
@@ -35,22 +33,13 @@
 }
 
 - (void)arrangeViews {
+    self.needToMakeLeadingShift = YES;
     [self updateArrangedViewsForNewContentOffset:CGPointMake(0.0, 0.0)];
-}
-
-- (NSMutableArray<NSValue *> *)getArrangedViewSizes {
-    NSInteger numberOfViews = [self.layoutDataSource numberOfArrangedViews];
-    NSMutableArray<NSValue*>* viewSizes = [NSMutableArray new];
-    for (NSInteger index = 0; index < numberOfViews; index++) {
-        CGSize size = [self.layoutDataSource sizeForViewAtIndex:index];
-        [viewSizes addObject:[NSValue valueWithCGSize:size]];
-    }
-    return viewSizes;
 }
 
 - (INFViewLayout *)calculateLayoutForContentOffset:(CGPoint)contentOffset {
     self.layoutStrategy.scrollViewSize = self.scrollViewSize;
-    self.layoutStrategy.sizesOfArrangedViews = [self getArrangedViewSizes];
+    self.layoutStrategy.sizesStorage = self;
 
     INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:contentOffset];
     return layout;
@@ -58,6 +47,12 @@
 
 - (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset {
     INFViewLayout * layout = [self calculateLayoutForContentOffset:contentOffset];
+    
+    if (self.needToMakeLeadingShift && layout.canHaveInfiniteScrolling) {
+        [layout setContentOffsetPosition:layout.lengthOfLeadingViews];
+        layout = [self calculateLayoutForContentOffset:layout.contentOffset];
+        self.needToMakeLeadingShift = NO;
+    }
 
     [self.layoutTarget updateContentSize:layout.contentSize];
     if (contentOffset.x != layout.contentOffset.x || contentOffset.y != layout.contentOffset.y) {
@@ -74,6 +69,20 @@
 
 - (INFOrientation)orientation {
     return self.layoutStrategy.orientation;
+}
+
+#pragma mark - INFViewsSizeStorage
+
+- (NSInteger)countOfViews {
+    return [self.layoutDataSource numberOfArrangedViews];
+}
+
+- (CGSize)sizeOfViewAtIndex:(NSInteger)index {
+    return [self.layoutDataSource estimatedSizeForViewAtIndex:index];
+}
+
+- (CGSize)accurateSizeOfViewAtIndex:(NSInteger)index{
+    return [self.layoutDataSource sizeForViewAtIndex:index];
 }
 
 @end

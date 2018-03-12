@@ -20,6 +20,7 @@
 
 - (CGFloat)getPositionForOrientation:(INFOrientation)orientation;
 - (void)setPosition:(CGFloat)position forOrientation:(INFOrientation)orientation;
+- (void)shiftPosition:(CGFloat)shift forOrientation:(INFOrientation)orientation;
 - (CGFloat)getLengthForOrientation:(INFOrientation)orientation;
 
 @end

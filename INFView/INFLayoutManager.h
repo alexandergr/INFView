@@ -12,16 +12,18 @@
 
 @protocol INFLayoutTarget;
 @protocol INFLayoutDataSource;
+@protocol INFLayoutDelegate;
 
 @interface INFLayoutManager: NSObject
 
 @property (nonatomic) CGSize scrollViewSize;
-@property (weak, nonatomic) id<INFLayoutTarget> layoutTarget;
-@property (weak, nonatomic) id<INFLayoutDataSource> layoutDataSource;
-@property (strong, nonatomic) id<INFLayoutStrategy> layoutStrategy;
+@property (nullable, weak, nonatomic) id<INFLayoutTarget> target;
+@property (nullable, weak, nonatomic) id<INFLayoutDataSource> dataSource;
+@property (nullable, weak, nonatomic) id<INFLayoutDelegate> delegate;
+@property (nonnull, strong, nonatomic) id<INFLayoutStrategy> strategy;
 @property (nonatomic) INFOrientation orientation;
 
-- (instancetype)initWithLayoutStrategyType:(INFLayoutStrategyType)layoutStrategyType NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithLayoutStrategyType:(INFLayoutStrategyType)layoutStrategyType NS_DESIGNATED_INITIALIZER;
 - (void)arrangeViews;
 - (void)updateArrangedViewsForNewContentOffset:(CGPoint)contentOffset;
 
@@ -36,5 +38,12 @@
 @protocol INFLayoutTarget
 - (void)updateContentSize:(CGSize)contentSize;
 - (void)updateContentOffset:(CGPoint)contentOffset;
-- (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo*)viewInfo;
+- (void)updateArrangedViewWithLayoutInfo:(nonnull INFLayoutViewInfo*)viewInfo;
+@end
+
+@protocol INFLayoutDelegate
+- (void)willShowViewAtIndex:(NSInteger)index;
+- (void)didShowViewAtIndex:(NSInteger)index;
+- (void)willHideViewAtIndex:(NSInteger)index;
+- (void)didHideViewAtIndex:(NSInteger)index;
 @end

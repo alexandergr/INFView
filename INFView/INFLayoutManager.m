@@ -12,6 +12,7 @@
 @interface INFLayoutManager() <INFViewsSizeStorage>
 
 @property (nonatomic) BOOL needToMakeLeadingShift;
+@property (nullable, strong, nonatomic) INFViewLayout* currentLayout;
 
 @end
 
@@ -22,7 +23,7 @@
     if (self != nil) {
         self.needToMakeLeadingShift = YES;
         if (layoutStrategyType == INFLayoutStrategyTypeSimple) {
-            self.layoutStrategy = [INFSimpleLayoutStrategy new];
+            self.strategy = [INFSimpleLayoutStrategy new];
         }
     }
     return self;
@@ -38,10 +39,10 @@
 }
 
 - (INFViewLayout *)calculateLayoutForContentOffset:(CGPoint)contentOffset {
-    self.layoutStrategy.scrollViewSize = self.scrollViewSize;
-    self.layoutStrategy.sizesStorage = self;
+    self.strategy.scrollViewSize = self.scrollViewSize;
+    self.strategy.sizesStorage = self;
 
-    INFViewLayout* layout = [self.layoutStrategy layoutArrangedViewsForContentOffset:contentOffset];
+    INFViewLayout* layout = [self.strategy layoutArrangedViewsForContentOffset:contentOffset];
     return layout;
 }
 
@@ -53,36 +54,106 @@
         layout = [self calculateLayoutForContentOffset:layout.contentOffset];
         self.needToMakeLeadingShift = NO;
     }
+    
+    NSArray<INFLayoutViewInfo*>* appearingViews = nil;
+    NSArray<INFLayoutViewInfo*>* disappearingViews = nil;
+    if (self.delegate) {
+        appearingViews = [self findAppearingViewsInLayout:layout oldLayout:self.currentLayout];
+        disappearingViews = [self findDisappearingViewsInLayout:layout oldLayout:self.currentLayout];
+    }
+    for (INFLayoutViewInfo* viewInfo in appearingViews) {
+        [self.delegate willShowViewAtIndex:viewInfo.index];
+    }
+    for (INFLayoutViewInfo* viewInfo in disappearingViews) {
+        [self.delegate willHideViewAtIndex:viewInfo.index];
+    }
 
-    [self.layoutTarget updateContentSize:layout.contentSize];
+    [self.target updateContentSize:layout.contentSize];
     if (contentOffset.x != layout.contentOffset.x || contentOffset.y != layout.contentOffset.y) {
-        [self.layoutTarget updateContentOffset:layout.contentOffset];
+        [self.target updateContentOffset:layout.contentOffset];
     }
     for (INFLayoutViewInfo* viewInfo in layout.viewsLayoutInfo) {
-        [self.layoutTarget updateArrangedViewWithLayoutInfo:viewInfo];
+        [self.target updateArrangedViewWithLayoutInfo:viewInfo];
     }
+    
+    for (INFLayoutViewInfo* viewInfo in appearingViews) {
+        [self.delegate didShowViewAtIndex:viewInfo.index];
+    }
+    for (INFLayoutViewInfo* viewInfo in disappearingViews) {
+        [self.delegate didHideViewAtIndex:viewInfo.index];
+    }
+    
+    self.currentLayout = layout;
 }
 
 - (void)setOrientation:(INFOrientation)orientation {
-    self.layoutStrategy.orientation = orientation;
+    self.strategy.orientation = orientation;
 }
 
 - (INFOrientation)orientation {
-    return self.layoutStrategy.orientation;
+    return self.strategy.orientation;
+}
+
+- (NSArray<INFLayoutViewInfo*>*)findAppearingViewsInLayout:(INFViewLayout*)layout oldLayout:(INFViewLayout*)oldLayout {
+    NSMutableArray<INFLayoutViewInfo*>* addedViews = [NSMutableArray new];
+    
+    NSArray<INFLayoutViewInfo*>* newViews = [layout getViewsInVisibleArea];
+    NSArray<INFLayoutViewInfo*>* oldViews = [oldLayout getViewsInVisibleArea];
+    
+    for (NSInteger i = 0; i < newViews.count; i++) {
+        BOOL haveViewInOldLayout = NO;
+        
+        for (NSInteger j = 0; j < oldViews.count; j++) {
+            if (oldViews[j].index == newViews[i].index) {
+                haveViewInOldLayout = YES;
+                break;
+            }
+        }
+        
+        if (!haveViewInOldLayout) {
+            [addedViews addObject:newViews[i]];
+        }
+    }
+    
+    return addedViews;
+}
+
+- (NSArray<INFLayoutViewInfo*>*)findDisappearingViewsInLayout:(INFViewLayout*)layout oldLayout:(INFViewLayout*)oldLayout {
+    NSMutableArray<INFLayoutViewInfo*>* removedViews = [NSMutableArray new];
+    
+    NSArray<INFLayoutViewInfo*>* newViews = [layout getViewsInVisibleArea];
+    NSArray<INFLayoutViewInfo*>* oldViews = [oldLayout getViewsInVisibleArea];
+    
+    for (NSInteger i = 0; i < oldViews.count; i++) {
+        BOOL haveViewInNewLayout = NO;
+        
+        for (NSInteger j = 0; j < newViews.count; j++) {
+            if (newViews[j].index == oldViews[i].index) {
+                haveViewInNewLayout = YES;
+                break;
+            }
+        }
+        
+        if (!haveViewInNewLayout) {
+            [removedViews addObject:oldViews[i]];
+        }
+    }
+    
+    return removedViews;
 }
 
 #pragma mark - INFViewsSizeStorage
 
 - (NSInteger)countOfViews {
-    return [self.layoutDataSource numberOfArrangedViews];
+    return [self.dataSource numberOfArrangedViews];
 }
 
 - (CGSize)sizeOfViewAtIndex:(NSInteger)index {
-    return [self.layoutDataSource estimatedSizeForViewAtIndex:index];
+    return [self.dataSource estimatedSizeForViewAtIndex:index];
 }
 
 - (CGSize)accurateSizeOfViewAtIndex:(NSInteger)index{
-    return [self.layoutDataSource sizeForViewAtIndex:index];
+    return [self.dataSource sizeForViewAtIndex:index];
 }
 
 @end

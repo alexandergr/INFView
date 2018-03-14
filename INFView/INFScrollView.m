@@ -9,7 +9,7 @@
 #import "INFScrollView.h"
 #import "INFLayoutManager.h"
 
-@interface INFScrollView () <INFLayoutTarget, INFLayoutDataSource>
+@interface INFScrollView () <INFLayoutTarget, INFLayoutDataSource, INFLayoutDelegate>
 
 @property (strong, nonatomic) NSMutableArray* arrangedViews;
 
@@ -19,7 +19,9 @@
 
 @implementation INFScrollView
 
-- (void)setDataSource:(id<INFViewDataSource>)dataSource {
+@dynamic delegate;
+
+- (void)setDataSource:(id<INFScrollViewDataSource>)dataSource {
     _dataSource = dataSource;
     [self reloadData];
 }
@@ -40,8 +42,9 @@
     self.layoutManager = [INFLayoutManager new];
     self.layoutManager.orientation = self.orientation;
     self.layoutManager.scrollViewSize = self.bounds.size;
-    self.layoutManager.layoutDataSource = self;
-    self.layoutManager.layoutTarget = self;
+    self.layoutManager.dataSource = self;
+    self.layoutManager.target = self;
+    self.layoutManager.delegate = self;
     [self.layoutManager arrangeViews];
 }
 
@@ -93,6 +96,32 @@
         return [self.dataSource infScrollView:self estimatedSizeForViewAtIndex:index];
     }
     return [self sizeForViewAtIndex:index];
+}
+
+#pragma mark - INFScrollViewDelegate
+
+- (void)willShowViewAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(infScrollView:willShowViewAtIndex:)]) {
+        [self.delegate infScrollView:self willShowViewAtIndex:index];
+    }
+}
+
+- (void)didShowViewAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(infScrollView:didShowViewAtIndex:)]) {
+        [self.delegate infScrollView:self didShowViewAtIndex:index];
+    }
+}
+
+- (void)willHideViewAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(infScrollView:willHideViewAtIndex:)]) {
+        [self.delegate infScrollView:self willHideViewAtIndex:index];
+    }
+}
+
+- (void)didHideViewAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(infScrollView:didHideViewAtIndex:)]) {
+        [self.delegate infScrollView:self didHideViewAtIndex:index];
+    }
 }
 
 @end

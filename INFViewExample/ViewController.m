@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <INFView/INFView.h>
 
-@interface ViewController () <INFViewDataSource>
+@interface ViewController () <INFScrollViewDataSource>
 
 @property (weak, nonatomic) IBOutlet INFScrollView *horizontalInfScrollView;
 @property (weak, nonatomic) IBOutlet INFScrollView *verticalInfScrollView;

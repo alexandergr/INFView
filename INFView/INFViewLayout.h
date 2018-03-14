@@ -39,4 +39,5 @@
 - (void)setAccurateSize:(CGSize)size forViewAtIndex:(NSInteger)index;
 
 - (NSArray<INFLayoutViewInfo*>*)getViewsInAreaFrom:(CGFloat)startPosition to:(CGFloat)endPosition;
+- (NSArray<INFLayoutViewInfo*>*)getViewsInVisibleArea;
 @end

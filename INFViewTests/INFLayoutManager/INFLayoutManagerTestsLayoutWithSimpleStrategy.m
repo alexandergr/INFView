@@ -8,11 +8,13 @@
 
 #import <XCTest/XCTest.h>
 #import "INFLayoutManager.h"
+#import "FakeLayoutDataSource.h"
 
-@interface INFLayoutManagerTests : XCTestCase <INFLayoutTarget, INFLayoutDataSource>
+@interface INFLayoutManagerTests : XCTestCase <INFLayoutTarget>
 
 @property (nonatomic) NSInteger numberOfItems;
 @property (nonatomic) CGSize viewSize;
+
 
 @property (copy, nonatomic) void(^updateArrangedViewCallBack)(INFLayoutViewInfo*);
 @property (copy, nonatomic) void(^updateContentSizeCallBack)(CGSize);
@@ -43,12 +45,11 @@
 
 - (void)testInitialLayout {
     INFLayoutManager* layoutManager = [INFLayoutManager new];
+    FakeLayoutDataSource* dataSource = [[FakeLayoutDataSource alloc] initWithViewsWidth:@[@100, @100, @100] viewsHeight:100.0];
 
-    layoutManager.layoutTarget = self;
-    layoutManager.layoutDataSource = self;
+    layoutManager.target = self;
+    layoutManager.dataSource = dataSource;
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
-    self.viewSize = layoutManager.scrollViewSize;
-    self.numberOfItems = 3;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
     XCTestExpectation* view2LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"View2 layout"];
@@ -87,12 +88,11 @@
 
 - (void)testNoInfiniteScrolling {
     INFLayoutManager* layoutManager = [INFLayoutManager new];
+    FakeLayoutDataSource* dataSource = [[FakeLayoutDataSource alloc] initWithViewsWidth:@[@100] viewsHeight:100.0];
     
-    layoutManager.layoutTarget = self;
-    layoutManager.layoutDataSource = self;
+    layoutManager.target = self;
+    layoutManager.dataSource = dataSource;
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
-    self.viewSize = layoutManager.scrollViewSize;
-    self.numberOfItems = 1;
     
     XCTestExpectation* view1LayoutExpectation = [[XCTestExpectation alloc] initWithDescription:@"view1 layout"];
     XCTestExpectation* extraLayoutCallExpextation = [[XCTestExpectation alloc] initWithDescription:@"Extra layout call"];
@@ -122,11 +122,11 @@
 
 -(void)testOffsetChangesOnScrolling{
     INFLayoutManager* layoutManager = [INFLayoutManager new];
+    FakeLayoutDataSource* dataSource = [[FakeLayoutDataSource alloc] initWithViewsWidth:@[@100, @100, @100] viewsHeight:100.0];
+    
     layoutManager.scrollViewSize = CGSizeMake(100, 100);
-    self.viewSize = layoutManager.scrollViewSize;
-    self.numberOfItems = 3;
-    layoutManager.layoutTarget = self;
-    layoutManager.layoutDataSource = self;
+    layoutManager.target = self;
+    layoutManager.dataSource = dataSource;
     
     XCTestExpectation* shiftFromZero = [[XCTestExpectation alloc] initWithDescription:@"shift from zero"];
     self.updateContentOffsetCallBack = ^(CGPoint contentOffset) {
@@ -172,7 +172,6 @@
     [self waitForExpectations:@[scrollAtEndOffset] timeout:0];
 }
 
-
 #pragma mark - INFLayoutTarget
 
 - (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo *)viewInfo {
@@ -187,17 +186,4 @@
     self.updateContentOffsetCallBack(contentOffset);
 }
 
-#pragma mark - INFLayoutDataSource
-
-- (NSInteger) numberOfArrangedViews {
-    return self.numberOfItems;
-}
-
-- (CGSize) sizeForViewAtIndex:(NSInteger)index {
-    return self.viewSize;
-}
-
-- (CGSize) estimatedSizeForViewAtIndex:(NSInteger)index {
-    return [self sizeForViewAtIndex:index];
-}
 @end

@@ -131,4 +131,16 @@
     return views;
 }
 
+- (CGFloat)getScrollViewLength {
+    if (self.orientation == INFOrientationHorizontal) {
+        return self.scrollViewSize.width;
+    } else {
+        return self.scrollViewSize.height;
+    }
+}
+
+- (NSArray<INFLayoutViewInfo*>*)getViewsInVisibleArea {
+    return [self getViewsInAreaFrom:[self getContentOffsetPosition] to:[self getContentOffsetPosition] + [self getScrollViewLength]];
+}
+
 @end

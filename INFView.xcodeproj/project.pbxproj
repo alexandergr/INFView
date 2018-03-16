@@ -40,6 +40,7 @@
 		84D4F6342057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F6332057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m */; };
 		84D4F636205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F635205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m */; };
 		84D4F638205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F637205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m */; };
+		84E20D0F205BFADA0023C019 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84E20D0E205BFADA0023C019 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		84D4F6332057D78B00A25BAD /* INFViewLayoutViewSizeChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFViewLayoutViewSizeChanges.m; sourceTree = "<group>"; };
 		84D4F635205817CF00A25BAD /* INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestSizeAdjustmentsWithoutInfinitScrolling.m; sourceTree = "<group>"; };
 		84D4F637205824E200A25BAD /* INFSimpleLayoutTestMinimalScrollConditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INFSimpleLayoutTestMinimalScrollConditions.m; sourceTree = "<group>"; };
+		84E20D0E205BFADA0023C019 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 		11FBC36A2022EB5100B1012A = {
 			isa = PBXGroup;
 			children = (
+				84E20D0E205BFADA0023C019 /* README.md */,
 				11FBC3762022EB5100B1012A /* INFView */,
 				11FBC3812022EB5100B1012A /* INFViewTests */,
 				11B23B0B2022EF3B002CFE6E /* INFViewExample */,
@@ -510,6 +513,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E20D0F205BFADA0023C019 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

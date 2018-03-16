@@ -13,6 +13,7 @@
 
 @property (nonatomic) BOOL needToMakeLeadingShift;
 @property (nullable, strong, nonatomic) INFViewLayout* currentLayout;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, NSValue*>* accurateSizes;
 
 @end
 
@@ -21,6 +22,7 @@
 - (instancetype) initWithLayoutStrategyType:(INFLayoutStrategyType)layoutStrategyType {
     self = [super init];
     if (self != nil) {
+        self.accurateSizes = [NSMutableDictionary new];
         self.needToMakeLeadingShift = YES;
         if (layoutStrategyType == INFLayoutStrategyTypeSimple) {
             self.strategy = [INFSimpleLayoutStrategy new];
@@ -35,6 +37,7 @@
 
 - (void)arrangeViews {
     self.needToMakeLeadingShift = YES;
+    self.accurateSizes = [NSMutableDictionary new];
     [self updateArrangedViewsForNewContentOffset:CGPointMake(0.0, 0.0)];
 }
 
@@ -144,16 +147,42 @@
 
 #pragma mark - INFViewsSizeStorage
 
+- (NSString*)keyForIndex:(NSInteger)index {
+    return [NSString stringWithFormat:@"%ld", (long)index];
+}
+
+- (NSValue*)getCachedAccurateSizeForIndex:(NSInteger)index {
+    NSString* key = [self keyForIndex:index];
+    return self.accurateSizes[key];
+}
+
+- (void)cacheAccurateSize:(CGSize)accurateSize forIndex:(NSInteger)index {
+    NSString* key = [self keyForIndex:index];
+    self.accurateSizes[key] = @(accurateSize);
+}
+
 - (NSInteger)countOfViews {
     return [self.dataSource numberOfArrangedViews];
 }
 
 - (CGSize)sizeOfViewAtIndex:(NSInteger)index {
+    NSValue* cachedSize = [self getCachedAccurateSizeForIndex:index];
+    if (cachedSize) {
+        return cachedSize.CGSizeValue;
+    }
     return [self.dataSource estimatedSizeForViewAtIndex:index];
 }
 
 - (CGSize)accurateSizeOfViewAtIndex:(NSInteger)index{
-    return [self.dataSource sizeForViewAtIndex:index];
+    NSValue* cachedSize = [self getCachedAccurateSizeForIndex:index];
+    if (cachedSize) {
+        return cachedSize.CGSizeValue;
+    }
+
+    CGSize accurateSize = [self.dataSource sizeForViewAtIndex:index];
+    [self cacheAccurateSize:accurateSize forIndex:index];
+
+    return accurateSize;
 }
 
 @end

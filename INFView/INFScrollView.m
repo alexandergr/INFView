@@ -11,9 +11,10 @@
 
 @interface INFScrollView () <INFLayoutTarget, INFLayoutDataSource, INFLayoutDelegate>
 
-@property (strong, nonatomic) NSMutableArray* arrangedViews;
-
 @property (strong, nonatomic) INFLayoutManager* layoutManager;
+
+@property (strong, nonatomic) NSMutableDictionary<NSNumber*, UIView*>* visibleViews;
+@property (strong, nonatomic) NSMutableDictionary<NSNumber*, UIView*>* viewCache;
 
 @end
 
@@ -27,17 +28,13 @@
 }
 
 - (void)reloadData {
-    for (UIView* subView in self.arrangedViews) {
+    for (NSNumber* key in self.visibleViews) {
+        UIView* subView = self.visibleViews[key];
         [subView removeFromSuperview];
     }
 
-    NSInteger numberOfArrangedSubViews = [self.dataSource numberOfArrangedViewsInINFScrollView:self];
-    self.arrangedViews = [NSMutableArray new];
-    for (NSInteger i = 0; i < numberOfArrangedSubViews; i++) {
-        UIView* subView = [self.dataSource infScrollView:self arrangedViewForIndex:i];
-        [self.arrangedViews addObject:subView];
-        [self addSubview:subView];
-    }
+    self.visibleViews = [NSMutableDictionary new];
+    self.viewCache = [NSMutableDictionary new];
     
     self.layoutManager = [INFLayoutManager new];
     self.layoutManager.orientation = self.orientation;
@@ -59,10 +56,31 @@
     [self.layoutManager updateArrangedViewsForNewContentOffset:self.contentOffset];
 }
 
+#pragma mark - arranged views management
+- (UIView*)getArrangedViewForIndex:(NSInteger)index {
+    if (self.viewCache[@(index)] == nil) {
+        self.viewCache[@(index)] = [self.dataSource infScrollView:self arrangedViewForIndex:index];
+        
+    }
+    return self.viewCache[@(index)];
+}
+
+- (void)displayArrangedViewForIndex:(NSInteger)index {
+    UIView* arrangedView = [self getArrangedViewForIndex:index];
+    [self addSubview:arrangedView];
+    self.visibleViews[@(index)] = arrangedView;
+}
+
+- (void)hideArrangedViewForIndex:(NSInteger)index {
+    UIView* arrangedView = self.visibleViews[@(index)];
+    [arrangedView removeFromSuperview];
+    [self.visibleViews removeObjectForKey:@(index)];
+}
+
 #pragma mark - INFViewLayoutMangerDelegate
 
 - (NSInteger)numberOfArrangedViews {
-    return self.numberOfArrangedSubViews;
+    return [self.dataSource numberOfArrangedViewsInINFScrollView:self];
 }
 
 - (void)updateContentSize:(CGSize)contentSize {
@@ -74,15 +92,11 @@
 }
 
 - (void)updateArrangedViewWithLayoutInfo:(INFLayoutViewInfo *)viewInfo{
-    UIView* subView = self.arrangedViews[viewInfo.index];
+    UIView* subView = self.visibleViews[@(viewInfo.index)];
     subView.center = viewInfo.center;
 }
 
 #pragma mark - INFViewLayoutDataSource
-
-- (NSInteger)numberOfArrangedSubViews {
-    return self.arrangedViews.count;
-}
 
 - (CGSize)sizeForViewAtIndex:(NSInteger)index {
     if ([self.dataSource respondsToSelector:@selector(infScrollView:sizeForViewAtIndex:)]) {
@@ -104,6 +118,7 @@
     if ([self.delegate respondsToSelector:@selector(infScrollView:willShowViewAtIndex:)]) {
         [self.delegate infScrollView:self willShowViewAtIndex:index];
     }
+    [self displayArrangedViewForIndex:index];
 }
 
 - (void)didShowViewAtIndex:(NSInteger)index {
@@ -119,6 +134,8 @@
 }
 
 - (void)didHideViewAtIndex:(NSInteger)index {
+    [self hideArrangedViewForIndex:index];
+    
     if ([self.delegate respondsToSelector:@selector(infScrollView:didHideViewAtIndex:)]) {
         [self.delegate infScrollView:self didHideViewAtIndex:index];
     }

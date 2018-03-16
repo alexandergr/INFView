@@ -13,7 +13,7 @@
 
 @property (nonatomic) BOOL needToMakeLeadingShift;
 @property (nullable, strong, nonatomic) INFViewLayout* currentLayout;
-@property (strong, nonatomic) NSMutableDictionary<NSString*, NSValue*>* accurateSizes;
+@property (strong, nonatomic) NSMutableDictionary<NSNumber*, NSValue*>* accurateSizes;
 
 @end
 
@@ -98,67 +98,43 @@
 }
 
 - (NSArray<INFLayoutViewInfo*>*)findAppearingViewsInLayout:(INFViewLayout*)layout oldLayout:(INFViewLayout*)oldLayout {
-    NSMutableArray<INFLayoutViewInfo*>* addedViews = [NSMutableArray new];
-    
     NSArray<INFLayoutViewInfo*>* newViews = [layout getViewsInVisibleArea];
     NSArray<INFLayoutViewInfo*>* oldViews = [oldLayout getViewsInVisibleArea];
     
-    for (NSInteger i = 0; i < newViews.count; i++) {
-        BOOL haveViewInOldLayout = NO;
-        
-        for (NSInteger j = 0; j < oldViews.count; j++) {
-            if (oldViews[j].index == newViews[i].index) {
-                haveViewInOldLayout = YES;
-                break;
-            }
-        }
-        
-        if (!haveViewInOldLayout) {
-            [addedViews addObject:newViews[i]];
-        }
-    }
-    
-    return addedViews;
+    return [self getViewsFormViewsArray:newViews nonContainedIn:oldViews];
 }
 
 - (NSArray<INFLayoutViewInfo*>*)findDisappearingViewsInLayout:(INFViewLayout*)layout oldLayout:(INFViewLayout*)oldLayout {
-    NSMutableArray<INFLayoutViewInfo*>* removedViews = [NSMutableArray new];
-    
     NSArray<INFLayoutViewInfo*>* newViews = [layout getViewsInVisibleArea];
     NSArray<INFLayoutViewInfo*>* oldViews = [oldLayout getViewsInVisibleArea];
     
-    for (NSInteger i = 0; i < oldViews.count; i++) {
-        BOOL haveViewInNewLayout = NO;
-        
-        for (NSInteger j = 0; j < newViews.count; j++) {
-            if (newViews[j].index == oldViews[i].index) {
-                haveViewInNewLayout = YES;
-                break;
-            }
-        }
-        
-        if (!haveViewInNewLayout) {
-            [removedViews addObject:oldViews[i]];
+    return [self getViewsFormViewsArray:oldViews nonContainedIn:newViews];
+}
+
+- (NSArray<INFLayoutViewInfo*>*)getViewsFormViewsArray:(NSArray<INFLayoutViewInfo*>*)views nonContainedIn:(NSArray<INFLayoutViewInfo*>*)otherArray {
+    NSMutableArray<INFLayoutViewInfo*>* result = [NSMutableArray new];
+    NSMutableDictionary<NSNumber*, INFLayoutViewInfo*>* otherDict = [NSMutableDictionary new];
+    
+    for (INFLayoutViewInfo* info in otherArray) {
+        otherDict[@(info.index)] = info;
+    }
+    
+    for (INFLayoutViewInfo* info in views) {
+        if (otherDict[@(info.index)] == nil) {
+            [result addObject:info];
         }
     }
     
-    return removedViews;
+    return result;
 }
 
 #pragma mark - INFViewsSizeStorage
-
-- (NSString*)keyForIndex:(NSInteger)index {
-    return [NSString stringWithFormat:@"%ld", (long)index];
-}
-
 - (NSValue*)getCachedAccurateSizeForIndex:(NSInteger)index {
-    NSString* key = [self keyForIndex:index];
-    return self.accurateSizes[key];
+    return self.accurateSizes[@(index)];
 }
 
 - (void)cacheAccurateSize:(CGSize)accurateSize forIndex:(NSInteger)index {
-    NSString* key = [self keyForIndex:index];
-    self.accurateSizes[key] = @(accurateSize);
+    self.accurateSizes[@(index)] = @(accurateSize);
 }
 
 - (NSInteger)countOfViews {
